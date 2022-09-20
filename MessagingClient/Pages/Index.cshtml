@@ -1,10 +1,13 @@
 ﻿@page
 @model IndexModel
+@using MessagingLibrary;
 @{
     ViewData["Title"] = "Home page";
+
+    var messages = Class1.GetMessage();
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <p>@messages</p>
 </div>
