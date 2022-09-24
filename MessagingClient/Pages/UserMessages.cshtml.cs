@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace MessagingClient.Pages
 {
-    public class PrivacyModel : PageModel
+    public class UserMessagesModel : PageModel
     {
-        private readonly ILogger<PrivacyModel> _logger;
+        private readonly ILogger<UserMessagesModel> _logger;
 
-        public PrivacyModel(ILogger<PrivacyModel> logger)
+        public UserMessagesModel(ILogger<UserMessagesModel> logger)
         {
             _logger = logger;
         }
