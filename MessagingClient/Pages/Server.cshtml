@@ -2,7 +2,38 @@
 @model ServerModel
 @{
     ViewData["Title"] = "Server";
+
+    MessagingLibrary.MessagingAPI.SendMessage("2021-09-08", "Library", "Other", "Lib");
 }
+
+<script type="text/javascript">
+    function sendMessage() {
+        var messageContent = document.getElementById('message');
+        var messageUser = document.getElementById('user');
+        var messageCategory = document.getElementById('category');
+        var sentTime = new Date();
+
+        // Add the code to send this data to library
+    }
+</script>
+
+
 <h1>@ViewData["Title"]</h1>
 
-<p>Use this page for sending messages to home notifications.</p>
+<p>This page is for sending messages to users from server.</p>
+
+<form>
+    <label for="message">Message Content:</label>
+    <input type="text" id="message" name="message">
+    <br>
+    <br>
+    <label for="user">Message User:</label>
+    <input type="text" id="user" name="user">
+    <br>
+    <br>
+    <label for="category">Message Category:</label>
+    <input type="text" id="category" name="category" value="Other">
+    <br>
+    <br>
+    <input type="submit" value="Submit" onclick="sendMessage()">
+</form>
