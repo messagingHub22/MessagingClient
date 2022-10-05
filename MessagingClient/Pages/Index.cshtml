@@ -1,10 +1,11 @@
 ﻿@page
 @model IndexModel
 @using MessagingLibrary;
+@using MessagingLibrary.Data
 @{
     ViewData["Title"] = "Home page";
 
-    var messages = MessagingAPI.GetMessages();
+    List<MessageData> messages = MessagingAPI.GetMessages();
 }
 
 <!-- Stylesheet for the popup -->
@@ -28,5 +29,11 @@
 
     <div class="text-center">
         <h1 class="display-4">Messaging Hub</h1>
-        <p>@messages</p>
-    </div>
+
+    @foreach (MessageData item in messages)
+    {
+        <p>
+            @item.content &emsp; @item.sentTime &emsp; @item.messageRead
+        </p>
+    }
+</div>
