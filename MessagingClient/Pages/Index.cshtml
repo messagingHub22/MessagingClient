@@ -10,23 +10,23 @@
 <!-- Stylesheet for the popup -->
 <link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
 
-<header>
-    <nav>
-        <button type="button" class="icon-button" id="button">
-            <img src="~/Image/notification_icon.png" width="25" height="25"></img>
-            <span class="icon-button__badge">2</span>
 
-        </button>
-        <div class="popup">
-            <span class="popuptext" id="myPopup"></span>
-        </div>
-    </nav>
-</header>
+<!-- Section for the popup that is added to nav from the shared layout -->
+@section Popup {
+    <button type="button" class="icon-button" id="button">
+        <img src="~/images/notification_icon.png" width="25" height="25" />
+        <span class="icon-button__badge">2</span>
 
-<!-- Script for opening/closing the popup -->
-<script src="~/js/indexPopup.js" asp-append-version="true"></script>
+    </button>
+    <div class="popup">
+        <span class="popuptext" id="myPopup"></span>
+    </div>
+}
 
-<div class="text-center">
-    <h1 class="display-4">Messaging Hub</h1>
-    <p>@messages</p>
-</div>
+    <!-- Script for opening/closing the popup -->
+    <script src="~/js/indexPopup.js" asp-append-version="true"></script>
+
+    <div class="text-center">
+        <h1 class="display-4">Messaging Hub</h1>
+        <p>@messages</p>
+    </div>
