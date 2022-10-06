@@ -6,6 +6,13 @@
     ViewData["Title"] = "Home page";
 
     List<MessageData> messages = MessagingAPI.GetMessages();
+
+    int unreadMessagesCount = 0;
+    foreach (MessageData item in messages)
+    {
+        if (!item.messageRead)
+            unreadMessagesCount++;
+    }
 }
 
 <!-- Stylesheet for the page -->
@@ -13,12 +20,20 @@
 
 <!-- Sending mark message read request to library -->
 <script type="text/javascript">
+    // Set the initial unread messages count
+    let messageCount = @unreadMessagesCount;
+
+    document.getElementById("popupBadge").innerHTML = messageCount;
+
     function markMessageRead(element, id) {
         element.parentElement.style.background = "#e6e6e6";
         element.style.visibility = 'hidden';
 
-        var url = "libApi/libMarkMessageRead?Id=" + id;
+        let url = "libApi/libMarkMessageRead?Id=" + id;
         fetch(url, { method: 'POST' });
+
+        messageCount--;
+        document.getElementById("popupBadge").innerHTML = messageCount;
     }
 </script>
 
@@ -27,7 +42,7 @@
 @section Popup {
     <button type="button" id="popupButton">
         <img src="~/images/notification_icon.png" />
-        <span id="popupBadge">@messages.Count</span>
+        <span id="popupBadge">0</span>
     </button>
 
     <div id="popupBox">
