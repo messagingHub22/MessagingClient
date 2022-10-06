@@ -31,7 +31,10 @@
                 <p>
                     @item.sentTime.ToShortDateString() &emsp;
                 </p>
-                <img src="~/images/check.png" id="popupReadIcon" hidden="@item.messageRead" onclick="alert(@item.id)" />
+                @if (!item.messageRead)
+                {
+                    <img src="~/images/check.png" id="popupReadIcon" onclick="alert(@item.id)" />
+                }
             </div>
         }
     </div>
