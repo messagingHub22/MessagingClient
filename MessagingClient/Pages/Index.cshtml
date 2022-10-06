@@ -8,23 +8,31 @@
     List<MessageData> messages = MessagingAPI.GetMessages();
 }
 
-<!-- Stylesheet for the popup -->
+<!-- Stylesheet for the page -->
 <link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
 
 
 <!-- Section for the popup that is added to nav from the shared layout -->
 @section Popup {
     <button type="button" id="popupButton">
-        <img src="~/images/notification_icon.png" width="25" height="25" />
+        <img src="~/images/notification_icon.png" />
         <span id="popupBadge">0</span>
     </button>
 
     <div id="popupBox">
         @foreach (MessageData item in messages)
         {
-            <p>
-                @item.content &emsp; @item.sentTime &emsp; @item.messageRead
-            </p>
+            var bgColor = item.messageRead ? "#e6e6e6" : "white";
+
+            <div id="popupItem" style="background:@bgColor">
+                <p>
+                    @item.content &emsp;
+                </p>
+                <p>
+                    @item.sentTime.ToShortDateString() &emsp;
+                </p>
+                <img src="~/images/check.png" id="popupReadIcon" hidden="@item.messageRead" onclick="alert(@item.id)" />
+            </div>
         }
     </div>
 }
