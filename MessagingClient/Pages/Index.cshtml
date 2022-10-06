@@ -11,6 +11,17 @@
 <!-- Stylesheet for the page -->
 <link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
 
+<!-- Sending mark message read request to library -->
+<script type="text/javascript">
+    function markMessageRead(element, id) {
+        element.parentElement.style.background = "#e6e6e6";
+        element.style.visibility = 'hidden';
+
+        var url = "libApi/libMarkMessageRead?Id=" + id;
+        fetch(url, { method: 'POST' });
+    }
+</script>
+
 
 <!-- Section for the popup that is added to nav from the shared layout -->
 @section Popup {
@@ -33,7 +44,7 @@
                 </p>
                 @if (!item.messageRead)
                 {
-                    <img src="~/images/check.png" id="popupReadIcon" onclick="alert(@item.id)" />
+                    <img src="~/images/check.png" id="popupReadIcon" onclick="markMessageRead(this, @item.id)" />
                 }
             </div>
         }

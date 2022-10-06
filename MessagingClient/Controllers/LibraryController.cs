@@ -13,5 +13,11 @@ namespace MessagingClient.Controllers
         {
             MessagingAPI.SendMessage(SentTime, Content, MessageCategory, MessageUser);
         }
+
+        [HttpPost("libMarkMessageRead")]
+        public void LibMarkMessageRead(String Id)
+        {
+            MessagingAPI.MarkMessageRead(Id);
+        }
     }
 }
