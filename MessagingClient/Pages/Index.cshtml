@@ -14,13 +14,18 @@
 
 <!-- Section for the popup that is added to nav from the shared layout -->
 @section Popup {
-    <button type="button" class="icon-button" id="button">
+    <button type="button" id="popupButton">
         <img src="~/images/notification_icon.png" width="25" height="25" />
-        <span class="icon-button__badge">2</span>
-
+        <span id="popupBadge">0</span>
     </button>
-    <div class="popup">
-        <span class="popuptext" id="myPopup"></span>
+
+    <div id="popupBox">
+        @foreach (MessageData item in messages)
+        {
+            <p>
+                @item.content &emsp; @item.sentTime &emsp; @item.messageRead
+            </p>
+        }
     </div>
 }
 
@@ -28,12 +33,5 @@
     <script src="~/js/indexPopup.js" asp-append-version="true"></script>
 
     <div class="text-center">
-        <h1 class="display-4">Messaging Hub</h1>
-
-    @foreach (MessageData item in messages)
-    {
-        <p>
-            @item.content &emsp; @item.sentTime &emsp; @item.messageRead
-        </p>
-    }
-</div>
+        <h1 class="display-4" style="padding-top:30vh">Messaging Hub</h1>
+    </div>
