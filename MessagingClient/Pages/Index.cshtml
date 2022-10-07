@@ -5,7 +5,7 @@
 @{
     ViewData["Title"] = "Home page";
 
-    List<MessageData> messages = MessagingAPI.GetMessages();
+    List<MessageData> messages = await MessagingAPI.GetMessages();
 
     int unreadMessagesCount = 0;
     foreach (MessageData item in messages)
