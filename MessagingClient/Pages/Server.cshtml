@@ -22,33 +22,6 @@
         document.getElementById("serverForm").reset();
         alert("Message submitted");
     }
-
-    function categoryClickListeners() {
-        let exp = document.getElementById("exports")
-        let sys = document.getElementById("system")
-        let wor = document.getElementById("work")
-        let oth = document.getElementById("other")
-        let category = document.getElementById("category")
-
-
-        exp.addEventListener("click", function () {
-            category.value = exp.value;
-        });
-
-        sys.addEventListener("click", function () {
-            category.value = sys.value;
-        });
-
-        wor.addEventListener("click", function () {
-            category.value = wor.value;
-        });
-
-        oth.addEventListener("click", function () {
-            category.value = oth.value;
-        });
-    }
-    
-    categoryClickListeners();
 </script>
 
 
@@ -78,3 +51,34 @@
     <br>
     <input type="button" value="Submit" onclick="sendMessage()">
 </form>
+
+<script type="text/javascript">  
+    function categoryClickListeners() {
+        let exp = document.getElementById("exports")
+        let sys = document.getElementById("system")
+        let wor = document.getElementById("work")
+        let oth = document.getElementById("other")
+        let category = document.getElementById("category")
+
+
+        exp.addEventListener("click", function () {
+            category.value = exp.value;
+        });
+
+        sys.addEventListener("click", function () {
+            category.value = sys.value;
+        });
+
+        wor.addEventListener("click", function () {
+            category.value = wor.value;
+        });
+
+        oth.addEventListener("click", function () {
+            category.value = oth.value;
+        });
+    }
+    
+    categoryClickListeners();
+</script>
+
+
