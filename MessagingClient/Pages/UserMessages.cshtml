@@ -3,6 +3,129 @@
 @{
     ViewData["Title"] = "User Messages";
 }
-<h1>@ViewData["Title"]</h1>
+<link rel="stylesheet" href="~/css/UsertoUser.css" asp-append-version="true">
 
-<p>Use this page to add user to user messaging</p>
+
+<div class="container">
+    <div class="chatbox">
+        <div class="friendlist">
+            <h3>
+                Friend list<button class="newmessage" onclick="addfriend()"><img src="~/Images/icon-add.png"></button>
+            </h3>
+
+            <ul id="fl">
+                <li id="1">Martin</li>
+                <li id="2">Beck</li>
+                <li id="3">James</li>
+                <li id="4">Robert</li>
+                <li id="5">John</li>
+                <li id="6">Michael</li>
+                <li id="7">David</li>
+                <li id="8">William</li>
+                <li id="9">Richard</li>
+                <li id="10">Joseph</li>
+
+            </ul>
+
+        </div>
+        <div class="chat">
+            <div id="p1">
+                <div class="name" id="name">
+                    Martin
+                </div>
+                <div class="message">
+                    <div class="msg-row" name="msg-row">
+                        <div class="msg-text">
+                            <h2>Martin</h2>
+                            <p> Hello </p>
+                        </div>
+                    </div>
+                    <div class="msg-row msg-row2" name="msg-row">
+                        <div class="msg-text text2">
+                            <h2>Beck</h2>
+                            <p> How are you </p>
+                        </div>
+                    </div>
+                    <div class="msg-row" name="msg-row">
+                        <div class="msg-text">
+                            <h2>Martin</h2>
+                            <p> Hello </p>
+                        </div>
+                    </div>
+                    <div class="msg-row" name="msg-row">
+                        <div class="msg-text">
+                            <h2>Martin</h2>
+                            <p> Hello </p>
+                        </div>
+                    </div>
+                    <div class="msg-row" name="msg-row">
+                        <div class="msg-text">
+                            <h2>Martin</h2>
+                            <p> Hello </p>
+                        </div>
+                    </div>
+                    <div class="msg-row" name="msg-row">
+                        <div class="msg-text">
+                            <h2>Martin</h2>
+                            <p> Hello </p>
+                        </div>
+                    </div>
+                    <div class="msg-row" name="msg-row">
+                        <div class="msg-text">
+                            <h2>Martin</h2>
+                            <p> Hello </p>
+                        </div>
+                    </div>
+                    <div class="msg-row" name="msg-row">
+                        <div class="msg-text">
+                            <h2>Martin</h2>
+                            <p> Hello </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="sendinput">
+                    <input type="text">
+                    <button class="send" type='button'>
+                        <img src=~/Images/send.png>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    let id;
+    document.getElementById("fl").addEventListener("click", function (e) {
+        id = e.target.id;
+        const lis = document.getElementById(id).innerHTML;
+        let pid = "p" + id;
+        document.getElementById("name").innerHTML = lis;
+        if (pid != 'p1') {
+            var text = document.getElementsByName("msg-row");
+            for (var i = 0; i < text.length; i++) {
+                text[i].style.display = "none";
+            }
+        }
+        else {
+            var text = document.getElementsByName("msg-row");
+            for (var i = 0; i < text.length; i++) {
+                text[i].style.display = "flex";
+            }
+        }
+    });
+
+    function addfriend() {
+        let addfir = prompt("Please enter the name", "");
+        if (addfir != null) {
+            var ul = document.getElementById("fl");
+            var li = document.createElement("li");
+            var addone = ul.children.length + 1;
+            li.setAttribute("id", addone);
+            li.appendChild(document.createTextNode(addfir));
+            ul.appendChild(li);
+        }
+    }
+</script>
