@@ -22,6 +22,33 @@
         document.getElementById("serverForm").reset();
         alert("Message submitted");
     }
+
+    function categoryClickListeners() {
+        let exp = document.getElementById("exports")
+        let sys = document.getElementById("system")
+        let wor = document.getElementById("work")
+        let oth = document.getElementById("other")
+        let category = document.getElementById("category")
+
+
+        exp.addEventListener("click", function () {
+            category.value = exp.value;
+        });
+
+        sys.addEventListener("click", function () {
+            category.value = sys.value;
+        });
+
+        wor.addEventListener("click", function () {
+            category.value = wor.value;
+        });
+
+        oth.addEventListener("click", function () {
+            category.value = oth.value;
+        });
+    }
+    
+    categoryClickListeners();
 </script>
 
 
@@ -40,6 +67,13 @@
     <br>
     <label for="category">Message Category:</label>
     <input type="text" id="category" name="category" value="Other">
+    
+    &emsp;
+    <button type="button" id="exports" value="Exports">Exports</button>
+    <button type="button" id="system" value="SystemEvents">SystemEvents</button>
+    <button type="button" id="work" value="WorkTasks">WorkTasks</button>
+    <button type="button" id="other" value="Other">Other</button>
+    
     <br>
     <br>
     <input type="button" value="Submit" onclick="sendMessage()">
