@@ -18,35 +18,6 @@
 <!-- Stylesheet for the page -->
 <link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
 
-<!-- Sending mark message read request to library -->
-<script type="text/javascript">
-    // Set the initial unread messages count
-    let messageCount = @unreadMessagesCount;
-
-    document.getElementById("popupBadge").innerHTML = messageCount;
-
-    function markMessageRead(element, id) {
-        element.parentElement.style.background = "#e6e6e6";
-        element.style.visibility = 'hidden';
-
-        let url = "libApi/libMarkMessageRead?Id=" + id;
-        fetch(url, { method: 'POST' });
-
-        messageCount--;
-        document.getElementById("popupBadge").innerHTML = messageCount;
-    }
-
-    function loginUser() {
-        let userName = document.getElementById('userName').value;
-
-        let loginForm = document.getElementById('loginForm');
-        loginForm.innerHTML = '';
-
-        document.getElementById('loginIntro').innerHTML = 'Logged in user: ' + userName;
-    }
-</script>
-
-
 <!-- Section for the popup that is added to nav from the shared layout -->
 @section Popup {
     <button type="button" id="popupButton">
@@ -75,8 +46,6 @@
     </div>
 }
 
-    <!-- Script for opening/closing the popup -->
-    <script src="~/js/indexPopup.js" asp-append-version="true"></script>
 
     <div class="text-center">
         <h1 class="display-4" style="padding-top:30vh" id="loginIntro">Messaging Hub Login</h1>
@@ -91,3 +60,10 @@
             <input type="button" value="Submit" onclick="loginUser()">
         </form>
     </div>
+
+
+    <!-- Script for opening/closing the popup -->
+    <script src="~/js/indexPopup.js" asp-append-version="true"></script>
+
+    <!-- Script for loading items, login -->
+    <script src="~/js/index.js" asp-append-version="true"></script>
