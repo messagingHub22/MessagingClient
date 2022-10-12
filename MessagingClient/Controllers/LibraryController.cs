@@ -1,4 +1,5 @@
 ﻿using MessagingLibrary;
+using MessagingLibrary.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MessagingClient.Controllers
@@ -19,5 +20,18 @@ namespace MessagingClient.Controllers
         {
             MessagingAPI.MarkMessageRead(Id);
         }
+
+        [HttpGet("libGetMessages")]
+        public async static Task<List<MessageData>> LibGetMessages()
+        {
+            return await MessagingAPI.GetMessages();
+        }
+
+        [HttpGet("libGetMessagesForUser")]
+        public async static Task<List<MessageData>> LibGetMessagesForUser(String User)
+        {
+            return await MessagingAPI.GetMessagesForUser(User);
+        }
+
     }
 }
