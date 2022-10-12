@@ -22,13 +22,13 @@ namespace MessagingClient.Controllers
         }
 
         [HttpGet("libGetMessages")]
-        public async static Task<List<MessageData>> LibGetMessages()
+        public async Task<List<MessageData>> LibGetMessages()
         {
             return await MessagingAPI.GetMessages();
         }
 
         [HttpGet("libGetMessagesForUser")]
-        public async static Task<List<MessageData>> LibGetMessagesForUser(String User)
+        public async Task<List<MessageData>> LibGetMessagesForUser(String User)
         {
             return await MessagingAPI.GetMessagesForUser(User);
         }

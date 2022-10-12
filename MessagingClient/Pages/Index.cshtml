@@ -4,15 +4,6 @@
 @using MessagingLibrary.Data
 @{
     ViewData["Title"] = "Home page";
-
-    List<MessageData> messages = await MessagingAPI.GetMessages();
-
-    int unreadMessagesCount = 0;
-    foreach (MessageData item in messages)
-    {
-        if (!item.messageRead)
-            unreadMessagesCount++;
-    }
 }
 
 <!-- Stylesheet for the page -->
@@ -26,23 +17,9 @@
     </button>
 
     <div id="popupBox">
-        @foreach (MessageData item in messages)
-        {
-            var bgColor = item.messageRead ? "#e6e6e6" : "white";
-
-            <div id="popupItem" style="background:@bgColor">
-                <p>
-                    @item.content &emsp;
-                </p>
-                <p>
-                    @item.sentTime.ToShortDateString() &emsp;
-                </p>
-                @if (!item.messageRead)
-                {
-                    <img src="~/images/check.png" id="popupReadIcon" onclick="markMessageRead(this, @item.id)" />
-                }
-            </div>
-        }
+        <div class="text-center">
+            <h1 class="display-4" style="padding-top:10vh">Login to a user to see messages</h1>
+        </div>
     </div>
 }
 
@@ -53,7 +30,7 @@
         <br>
 
         <form id="loginForm">
-            <label for="message">User Content:</label>
+            <label for="message">User Name:</label>
             <input type="text" id="userName" name="userName">
             <br>
             <br>
@@ -62,8 +39,8 @@
     </div>
 
 
-    <!-- Script for opening/closing the popup -->
-    <script src="~/js/indexPopup.js" asp-append-version="true"></script>
-
     <!-- Script for loading items, login -->
     <script src="~/js/index.js" asp-append-version="true"></script>
+
+    <!-- Script for opening/closing the popup -->
+    <script src="~/js/indexPopup.js" asp-append-version="true"></script>
