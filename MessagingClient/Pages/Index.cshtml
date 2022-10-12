@@ -35,6 +35,15 @@
         messageCount--;
         document.getElementById("popupBadge").innerHTML = messageCount;
     }
+
+    function loginUser() {
+        let userName = document.getElementById('userName').value;
+
+        let loginForm = document.getElementById('loginForm');
+        loginForm.innerHTML = '';
+
+        document.getElementById('loginIntro').innerHTML = 'Logged in user: ' + userName;
+    }
 </script>
 
 
@@ -69,6 +78,16 @@
     <!-- Script for opening/closing the popup -->
     <script src="~/js/indexPopup.js" asp-append-version="true"></script>
 
-    <div class="text-center">
-        <h1 class="display-4" style="padding-top:30vh">Messaging Hub</h1>
+    <div class="text-center" id="loginDiv">
+        <h1 class="display-4" style="padding-top:30vh" id="loginIntro">Messaging Hub Login</h1>
+        <br>
+        <br>
+
+        <form id="loginForm">
+            <label for="message">User Content:</label>
+            <input type="text" id="userName" name="userName">
+            <br>
+            <br>
+            <input type="button" value="Submit" onclick="loginUser()">
+        </form>
     </div>
