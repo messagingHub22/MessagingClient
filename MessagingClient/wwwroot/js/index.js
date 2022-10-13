@@ -15,16 +15,30 @@ function markMessageRead(element) {
 }
 
 function loginUser() {
+    // User name from input
     let userName = document.getElementById('userName').value;
 
+    // Remove the login form
     let loginForm = document.getElementById('loginForm');
     loginForm.innerHTML = '';
 
+    // Show that the user is logged in
     document.getElementById('loginIntro').innerHTML = 'Logged in user: ' + userName;
 
+    // Send the login username to the library
+    libraryLogin(userName);
+
+    // Load messages in popup
     loadMessagesForUser(userName);
 }
 
+// Send user login to library
+function libraryLogin(user) {
+    let url = "libApi/libLoginUser?User=" + user;
+    fetch(url, { method: 'POST' });
+}
+
+// Load messages for the user in the popup
 function loadMessagesForUser(user) {
     let url = "libApi/libGetMessagesForUser?User=" + user;
 
@@ -73,7 +87,7 @@ function loadMessagesForUser(user) {
                     // Add this popupItem to the popup box
                     popupBox.appendChild(popupItem);
 
-
+                    // Add to the unreadMessagesCount if message is not read
                     if (!message.messageRead)
                         unreadMessagesCount++;
                 }

@@ -33,5 +33,10 @@ namespace MessagingClient.Controllers
             return await MessagingAPI.GetMessagesForUser(User);
         }
 
+        [HttpPost("libLoginUser")]
+        public void LibLoginUser(String User)
+        {
+            MessagingAPI.LoginUser(User);
+        }
     }
 }
