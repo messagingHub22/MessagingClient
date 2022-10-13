@@ -1,7 +1,5 @@
 ﻿@page
 @model IndexModel
-@using MessagingLibrary;
-@using MessagingLibrary.Data
 @{
     ViewData["Title"] = "Home page";
 }
@@ -18,7 +16,7 @@
 
     <div id="popupBox">
         <div class="text-center">
-            <h1 class="display-4" style="padding-top:10vh">Login to a user to see messages</h1>
+            <h1 class="display-4" style="padding-top:10vh" id="loginNote">Login to a user to see messages</h1>
         </div>
     </div>
 }
