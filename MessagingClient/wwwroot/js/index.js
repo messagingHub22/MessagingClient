@@ -1,6 +1,12 @@
 ﻿// Counter for unread messages
 var unreadMessagesCount = 0;
 
+// User name
+var userName = "";
+
+// Last update time
+var lastUpdate = "";
+
 function markMessageRead(element) {
     let id = element.getAttribute('messageId');
 
@@ -16,7 +22,7 @@ function markMessageRead(element) {
 
 function loginUser() {
     // User name from input
-    let userName = document.getElementById('userName').value;
+    userName = document.getElementById('userName').value;
 
     // Remove the login form
     let loginForm = document.getElementById('loginForm');
@@ -26,21 +32,24 @@ function loginUser() {
     document.getElementById('loginIntro').innerHTML = 'Logged in user: ' + userName;
 
     // Send the login username to the library
-    libraryLogin(userName);
+    libraryLogin();
 
     // Load messages in popup
-    loadMessagesForUser(userName);
+    loadMessagesForUser();
+
+    // Set timw
+    setInterval(loadChangedTime, 1000);
 }
 
 // Send user login to library
 function libraryLogin(user) {
-    let url = "libApi/libLoginUser?User=" + user;
+    let url = "libApi/libLoginUser?User=" + userName;
     fetch(url, { method: 'POST' });
 }
 
 // Load messages for the user in the popup
-function loadMessagesForUser(user) {
-    let url = "libApi/libGetMessagesForUser?User=" + user;
+function loadMessagesForUser() {
+    let url = "libApi/libGetMessagesForUser?User=" + userName;
 
     fetch(url)
         .then(res => res.json())
@@ -52,6 +61,9 @@ function loadMessagesForUser(user) {
                 // Remove the login message from popup
                 let popupBox = document.getElementById('popupBox');
                 popupBox.innerHTML = '';
+
+                // Reset the unread messages counter
+                unreadMessagesCount = 0;
 
                 for (message of messages) {
                     // Background of item
@@ -96,5 +108,26 @@ function loadMessagesForUser(user) {
             // Set the unread messages count on notification icon
             document.getElementById('popupBadge').innerHTML = unreadMessagesCount;
         });
+}
 
+
+// Get the reload time for the messages for the user
+function loadChangedTime() {
+    let url = "libApi/libReloadTime";
+
+    fetch(url)
+        .then(res => res.json())
+        .then(messages => {
+            let oldTime = lastUpdate;
+            lastUpdate = messages[0];
+
+            // Do not reload just after login
+            if (oldTime == "")
+                return;
+            
+            // Reload messages if new one arrived
+            if (oldTime != lastUpdate)
+                loadMessagesForUser();
+
+        });
 }

@@ -36,7 +36,13 @@ namespace MessagingClient.Controllers
         [HttpPost("libLoginUser")]
         public void LibLoginUser(String User)
         {
-            MessagingAPI.LoginUser(User);
+            HubLink.LoginUser(User);
+        }
+
+        [HttpGet("libReloadTime")]
+        public List<string> LibReloadTime()
+        {
+            return new List<string> { HubLink.ChangedTime() };
         }
     }
 }
