@@ -40,9 +40,9 @@ namespace MessagingClient.Controllers
         }
 
         [HttpGet("libReloadTime")]
-        public List<string> LibReloadTime()
+        public List<string> LibReloadTime(String User)
         {
-            return new List<string> { HubLink.ChangedTime() };
+            return new List<string> { HubLink.ChangedTime(User) };
         }
     }
 }

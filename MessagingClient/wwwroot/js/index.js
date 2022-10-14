@@ -113,7 +113,7 @@ function loadMessagesForUser() {
 
 // Get the reload time for the messages for the user
 function loadChangedTime() {
-    let url = "libApi/libReloadTime";
+    let url = "libApi/libReloadTime?User=" + userName;
 
     fetch(url)
         .then(res => res.json())
