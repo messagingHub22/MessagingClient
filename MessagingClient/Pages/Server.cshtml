@@ -5,37 +5,6 @@
     ViewData["Title"] = "Server";
 }
 
-<!-- SignalR client library -->
-<script src="~/js/signalr/dist/browser/signalr.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-    function sendMessage() {
-        var sentTime = new Date().toISOString().slice(0, 19).replace('T', ' ');
-        var messageContent = document.getElementById('message').value;
-        var messageCategory = document.getElementById('category').value;
-        var messageUser = document.getElementById('user').value;
-
-        if (messageContent == null || messageContent == "" || messageCategory == null || messageCategory == "" || messageUser == null || messageUser == "") {
-            alert("All fields need to be completed");
-            return;
-        }
-
-        var url = "libApi/libSendMessage?SentTime=" + sentTime + "&Content=" + messageContent + "&MessageCategory=" + messageCategory + "&MessageUser=" + messageUser;
-        fetch(url, { method: 'POST' });
-
-        document.getElementById("serverForm").reset();
-        alert("Message submitted");
-
-
-        var connection = new signalR.HubConnectionBuilder().withUrl("@MessagingAPI.ApiUrl" + "/messagingHub").build();
-
-        connection.invoke("ReloadMessage", messageUser).catch(function (exception) {
-            return console.error(exception.toString());
-        });
-    }
-</script>
-
-
 <h1>@ViewData["Title"]</h1>
 
 <p>This page is for sending messages to users from server.</p>
@@ -63,33 +32,9 @@
     <input type="button" value="Submit" onclick="sendMessage()">
 </form>
 
-<script type="text/javascript">
-    function categoryClickListeners() {
-        let exp = document.getElementById("exports")
-        let sys = document.getElementById("system")
-        let wor = document.getElementById("work")
-        let oth = document.getElementById("other")
-        let category = document.getElementById("category")
 
+<!-- SignalR client library -->
+<script src="~/js/signalr/dist/browser/signalr.js" type="text/javascript"></script>
 
-        exp.addEventListener("click", function () {
-            category.value = exp.value;
-        });
-
-        sys.addEventListener("click", function () {
-            category.value = sys.value;
-        });
-
-        wor.addEventListener("click", function () {
-            category.value = wor.value;
-        });
-
-        oth.addEventListener("click", function () {
-            category.value = oth.value;
-        });
-    }
-
-    categoryClickListeners();
-</script>
-
-
+<!-- Script for server items -->
+<script src="~/js/server.js" asp-append-version="true"></script>
