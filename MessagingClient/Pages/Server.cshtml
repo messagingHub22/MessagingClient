@@ -27,7 +27,7 @@
         alert("Message submitted");
 
 
-        var connection = new signalR.HubConnectionBuilder().withUrl(@MessagingAPI.ApiUrl + "/messagingHub").build();
+        var connection = new signalR.HubConnectionBuilder().withUrl("@MessagingAPI.ApiUrl" + "/messagingHub").build();
 
         connection.invoke("ReloadMessage", messageUser).catch(function (exception) {
             return console.error(exception.toString());
