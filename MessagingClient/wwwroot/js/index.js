@@ -20,7 +20,7 @@ function markMessageRead(element) {
     document.getElementById("popupBadge").innerHTML = unreadMessagesCount;
 }
 
-function loginUser() {
+function loginUser(apiUrl) {
     // User name from input
     userName = document.getElementById('userName').value;
 
@@ -37,12 +37,15 @@ function loginUser() {
     // Load messages in popup
     loadMessagesForUser();
 
-    // Set timw
-    setInterval(loadChangedTime, 1000);
+    // Set signalR
+    setSignalR(apiUrl);
+
+    // Set timer if you want to use the hubConnection from library. Not reccommended. Asks for update every second from library. Use client signalR instead.
+    // setInterval(loadChangedTime, 1000);
 }
 
 // Send user login to library
-function libraryLogin(user) {
+function libraryLogin() {
     let url = "libApi/libLoginUser?User=" + userName;
     fetch(url, { method: 'POST' });
 }
@@ -124,10 +127,25 @@ function loadChangedTime() {
             // Do not reload just after login
             if (oldTime == "")
                 return;
-            
+
             // Reload messages if new one arrived
             if (oldTime != lastUpdate)
                 loadMessagesForUser();
 
         });
+}
+
+function setSignalR(apiUrl) {
+    var connection = new signalR.HubConnectionBuilder().withUrl(apiUrl + "/messagingHub").build();
+
+    connection.on("ReloadMessageClient", function (user) {
+        if (user == userName)
+            loadMessagesForUser();
+    });
+
+    connection.start().then(function () {
+        // Something after connected
+    }).catch(function (exception) {
+        return console.error(exception.toString());
+    });
 }

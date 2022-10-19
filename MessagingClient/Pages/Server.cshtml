@@ -1,8 +1,12 @@
 ﻿@page
+@using MessagingLibrary
 @model ServerModel
 @{
     ViewData["Title"] = "Server";
 }
+
+<!-- SignalR client library -->
+<script src="~/js/signalr/dist/browser/signalr.js" type="text/javascript"></script>
 
 <script type="text/javascript">
     function sendMessage() {
@@ -21,6 +25,13 @@
 
         document.getElementById("serverForm").reset();
         alert("Message submitted");
+
+
+        var connection = new signalR.HubConnectionBuilder().withUrl(@MessagingAPI.ApiUrl + "/messagingHub").build();
+
+        connection.invoke("ReloadMessage", messageUser).catch(function (exception) {
+            return console.error(exception.toString());
+        });
     }
 </script>
 
@@ -40,19 +51,19 @@
     <br>
     <label for="category">Message Category:</label>
     <input type="text" id="category" name="category" value="Other">
-    
+
     &emsp;
     <button type="button" id="exports" value="Exports">Exports</button>
     <button type="button" id="system" value="SystemEvents">SystemEvents</button>
     <button type="button" id="work" value="WorkTasks">WorkTasks</button>
     <button type="button" id="other" value="Other">Other</button>
-    
+
     <br>
     <br>
     <input type="button" value="Submit" onclick="sendMessage()">
 </form>
 
-<script type="text/javascript">  
+<script type="text/javascript">
     function categoryClickListeners() {
         let exp = document.getElementById("exports")
         let sys = document.getElementById("system")
@@ -77,7 +88,7 @@
             category.value = oth.value;
         });
     }
-    
+
     categoryClickListeners();
 </script>
 
