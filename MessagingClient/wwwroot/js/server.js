@@ -48,4 +48,43 @@ function categoryClickListeners() {
     });
 }
 
+function groupButtonClickListener() {
+    btn = document.getElementById('head-btn');
+    box = document.getElementById("box-parent");
+
+    let i = 0;
+    btn.addEventListener("click", function () {
+
+        // console.log("hii")
+        i++;
+        if (i % 2 != 0) {
+            box.style.opacity = "1.0";
+        }
+        else {
+            box.style.opacity = "0";
+        }
+    });
+}
+
+function groupAdd() {
+    var liitem = prompt("Please enter the group name", "name");
+    if (liitem != null) {
+        var list = document.getElementById('list');
+        var newListItem = document.createElement('li');
+        newListItem.innerHTML = liitem;
+        list.appendChild(newListItem);
+    }
+}
+
+function memberAdd() {
+    var l = prompt("Please enter member name", "name");
+    if (l != null) {
+        var list = document.getElementById('list1');
+        var newListItem = document.createElement('li');
+        newListItem.innerHTML = l;
+        list.appendChild(newListItem);
+    }
+}
+
 categoryClickListeners();
+groupButtonClickListener();
