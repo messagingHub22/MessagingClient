@@ -65,20 +65,20 @@ function groupButtonClickListener() {
 }
 
 function groupAdd() {
-    var liitem = prompt("Please enter the group name", "name");
+    let liitem = prompt("Please enter the group name", "name");
     if (liitem != null) {
-        var list = document.getElementById('list');
-        var newListItem = document.createElement('li');
+        let list = document.getElementById('list');
+        let newListItem = document.createElement('li');
         newListItem.innerHTML = liitem;
         list.appendChild(newListItem);
     }
 }
 
 function memberAdd() {
-    var l = prompt("Please enter member name", "name");
+    let l = prompt("Please enter member name", "name");
     if (l != null) {
-        var list = document.getElementById('list1');
-        var newListItem = document.createElement('li');
+        let list = document.getElementById('list1');
+        let newListItem = document.createElement('li');
         newListItem.innerHTML = l;
         list.appendChild(newListItem);
     }
