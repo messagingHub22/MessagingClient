@@ -54,8 +54,6 @@ function groupButtonClickListener() {
 
     let i = 0;
     btn.addEventListener("click", function () {
-
-        // console.log("hii")
         i++;
         if (i % 2 != 0) {
             box.style.opacity = "1.0";
