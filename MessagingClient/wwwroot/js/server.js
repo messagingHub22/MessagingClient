@@ -61,10 +61,10 @@ function groupButtonClickListener() {
     btn.addEventListener("click", function () {
         i++;
         if (i % 2 != 0) {
-            box.style.opacity = "1.0";
+            box.style.visibility = 'visible';
         }
         else {
-            box.style.opacity = "0";
+            box.style.visibility = 'hidden';
         }
     });
 }
