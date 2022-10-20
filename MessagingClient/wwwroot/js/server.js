@@ -1,4 +1,4 @@
-﻿function sendMessage() {
+﻿function sendMessage(apiUrl) {
     var sentTime = new Date().toISOString().slice(0, 19).replace('T', ' ');
     var messageContent = document.getElementById('message').value;
     var messageCategory = document.getElementById('category').value;
@@ -13,10 +13,15 @@
     fetch(url, { method: 'POST' });
 
     document.getElementById("serverForm").reset();
-    alert("Message submitted");
+    alert("Message submitted")
 
 
-    var connection = new signalR.HubConnectionBuilder().withUrl("@MessagingAPI.ApiUrl" + "/messagingHub").build();
+    var connection = new signalR.HubConnectionBuilder().withUrl(apiUrl + "/messagingHub").build();
+    connection.start().then(function () {
+        // Something after connected
+    }).catch(function (exception) {
+        return console.error(exception.toString());
+    });
 
     connection.invoke("ReloadMessage", messageUser).catch(function (exception) {
         return console.error(exception.toString());
