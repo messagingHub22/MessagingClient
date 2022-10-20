@@ -18,12 +18,11 @@
 
     var connection = new signalR.HubConnectionBuilder().withUrl(apiUrl + "/messagingHub").build();
     connection.start().then(function () {
-        // Something after connected
+        // After connected
+        connection.invoke("ReloadMessage", messageUser).catch(function (exception) {
+            return console.error(exception.toString());
+        });
     }).catch(function (exception) {
-        return console.error(exception.toString());
-    });
-
-    connection.invoke("ReloadMessage", messageUser).catch(function (exception) {
         return console.error(exception.toString());
     });
 }
