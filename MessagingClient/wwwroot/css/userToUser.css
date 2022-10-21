@@ -12,6 +12,7 @@
 
 
 .chatbox {
+    width: 100%;
     display: flex;
 }
 
@@ -46,7 +47,7 @@
 
 .friendlist ul {
     background: white;
-    height: calc(500px - 30px);
+    height: 65vh;
     overflow-y: auto;
 }
 
@@ -62,7 +63,6 @@
     position: relative;
     width: 30px;
     height: 30px;
-    ;
     left: 30px;
     outline: none;
     border: none;
@@ -116,7 +116,7 @@
 
 .message {
     width: 100%;
-    height: calc(500px - 70px);
+    height: 60vh;
     overflow-y: auto;
 }
 

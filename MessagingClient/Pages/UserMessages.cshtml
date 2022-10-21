@@ -33,7 +33,7 @@
                 <div class="name" id="name">
                     Martin
                 </div>
-                <div class="message">
+                <div class="message" id="message">
                     <div class="msg-row" name="msg-row">
                         <div class="msg-text">
                             <h2>Martin</h2>
@@ -87,8 +87,8 @@
 
             <div>
                 <div class="sendinput">
-                    <input type="text">
-                    <button class="send" type='button'>
+                    <input type="text" id="text">
+                    <button class="send" onclick="send()">
                         <img src=~/Images/send.png>
                     </button>
                 </div>
@@ -127,5 +127,15 @@
             li.appendChild(document.createTextNode(addfir));
             ul.appendChild(li);
         }
+    }
+
+    function send() {
+        let messagenew = document.getElementById("text").value;
+        let divmessage = document.getElementById('message');
+        if (messagenew != '') {
+            divmessage.innerHTML += '<div class="msg-row msg-row2" name="msg-row"><div class="msg-text text2"><h2>Beck </h2><p> ' + messagenew + '</p></div></div> ';
+            divmessage.scrollBy(0, 1000);
+        }
+        document.getElementById("text").value = '';
     }
 </script>
