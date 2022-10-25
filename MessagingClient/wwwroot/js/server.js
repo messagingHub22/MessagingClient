@@ -87,7 +87,7 @@ function addItemToGroup(groupItem) {
 
 function memberAdd() {
     let memberItem = prompt("Please enter member name", "name");
-    if (l != null) {
+    if (memberAdd != null) {
         let list = document.getElementById('members-list');
 
         let newListItem = document.createElement('li');
@@ -118,4 +118,4 @@ function groupsPopupInit() {
 categoryClickListeners();
 groupButtonClickListener();
 
-groupPopupInit();
+groupsPopupInit();
