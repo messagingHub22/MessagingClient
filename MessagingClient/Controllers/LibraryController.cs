@@ -1,6 +1,7 @@
 ﻿using MessagingLibrary;
 using MessagingLibrary.Data;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.RegularExpressions;
 
 namespace MessagingClient.Controllers
 {
@@ -51,6 +52,17 @@ namespace MessagingClient.Controllers
         {
             return await MessagingAPI.GetGroups();
         }
-        
+
+        [HttpPost("libAddMemberToGroup")]
+        public void LibAddMemberToGroup(String GroupName, String MemberName)
+        {
+            MessagingAPI.AddMemberToGroup(GroupName, MemberName);
+        }
+
+        [HttpGet("libGetGroupMembers")]
+        public async Task<List<string>> LibGetGroupMembers(string Group)
+        {
+            return await MessagingAPI.GetGroupMembers(Group);
+        }
     }
 }
