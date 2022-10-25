@@ -72,3 +72,51 @@
     top: 5.5rem;
     right: 12.5rem;
 }
+#groups-list li {
+    text-align: center;
+    list-style-type: none;
+    border-bottom: 1px solid;
+    width: 100%;
+    height: 70px;
+    line-height: 70px;
+}
+
+#groups-list {
+    margin: 0;
+    padding: 0;
+    background: white;
+    height: 85%;
+    overflow-y: auto;
+}
+
+#groups-list li:hover {
+    background-color: darkgray;
+}
+
+#groups-list::-webkit-scrollbar {
+    display: none;
+}
+
+#members-list li {
+    text-align: center;
+    list-style: none;
+    border-bottom: 1px solid;
+    height: 70px;
+    line-height: 70px;
+}
+
+#members-list {
+    margin: 0;
+    padding: 0;
+    background: white;
+    height: 85%;
+    overflow-y: auto;
+}
+
+#members-list li:hover {
+    background-color: darkgray;
+}
+
+#members-list::-webkit-scrollbar {
+    display: none;
+}
