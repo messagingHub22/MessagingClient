@@ -54,39 +54,68 @@ function categoryClickListeners() {
 
 function groupButtonClickListener() {
     btn = document.getElementById('head-btn');
-    box = document.getElementById("box-parent");
+    box = document.getElementById("groups-popup");
 
-    let i = 0;
+    let visible = false;
     btn.addEventListener("click", function () {
-        i++;
-        if (i % 2 != 0) {
+        if (!visible) {
             box.style.visibility = 'visible';
         }
         else {
             box.style.visibility = 'hidden';
         }
+        visible = !visible;
     });
 }
 
 function groupAdd() {
-    let liitem = prompt("Please enter the group name", "name");
-    if (liitem != null) {
-        let list = document.getElementById('list');
-        let newListItem = document.createElement('li');
-        newListItem.innerHTML = liitem;
-        list.appendChild(newListItem);
+    let groupItem = prompt("Please enter the group name", "name");
+
+    if (groupItem != null) {
+        addItemToGroup(groupItem);
     }
+}
+
+function addItemToGroup(groupItem) {
+    let list = document.getElementById('groups-list');
+
+    let newListItem = document.createElement('li');
+    newListItem.innerHTML = groupItem;
+
+    list.appendChild(newListItem);
 }
 
 function memberAdd() {
-    let l = prompt("Please enter member name", "name");
+    let memberItem = prompt("Please enter member name", "name");
     if (l != null) {
-        let list = document.getElementById('list1');
+        let list = document.getElementById('members-list');
+
         let newListItem = document.createElement('li');
-        newListItem.innerHTML = l;
+        newListItem.innerHTML = memberItem;
+
         list.appendChild(newListItem);
     }
 }
 
+function groupsPopupInit() {
+    let url = "libApi/libGetGroups";
+
+    fetch(url)
+        .then(res => res.json())
+        .then(groups => {
+            if (groups.length == 0) {
+                // No groups
+                addItemToGroup("No groups exist");
+            } else {
+                for (group of groups) {
+                    addItemToGroup(group);
+                }
+            }
+        });
+}
+
+
 categoryClickListeners();
 groupButtonClickListener();
+
+groupPopupInit();

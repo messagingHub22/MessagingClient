@@ -44,5 +44,13 @@ namespace MessagingClient.Controllers
         {
             return new List<string> { HubLink.ChangedTime(User) };
         }
+
+
+        [HttpGet("libGetGroups")]
+        public async Task<List<string>> LibGetGroups()
+        {
+            return await MessagingAPI.GetGroups();
+        }
+        
     }
 }
