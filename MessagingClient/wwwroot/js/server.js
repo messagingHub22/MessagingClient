@@ -77,24 +77,52 @@ function groupAdd() {
 }
 
 function addItemToGroup(groupItem) {
-    let list = document.getElementById('groups-list');
+    let groupsList = document.getElementById('groups-list');
 
     let newListItem = document.createElement('li');
     newListItem.innerHTML = groupItem;
+    newListItem.onclick = function () {
+        loadMembers(newListItem.innerHTML);
+    };
 
-    list.appendChild(newListItem);
+    groupsList.appendChild(newListItem);
 }
 
 function memberAdd() {
     let memberItem = prompt("Please enter member name", "name");
+
     if (memberAdd != null) {
-        let list = document.getElementById('members-list');
-
-        let newListItem = document.createElement('li');
-        newListItem.innerHTML = memberItem;
-
-        list.appendChild(newListItem);
+        addItemToMember(memberItem);
     }
+}
+
+function addItemToMember(member) {
+    let membersList = document.getElementById('members-list');
+
+    let newListItem = document.createElement('li');
+    newListItem.innerHTML = member;
+
+    membersList.appendChild(newListItem);
+}
+
+function loadMembers(groupName) {
+    let membersList = document.getElementById('members-list');
+    membersList.innerHTML = "";
+
+    let url = "libApi/libGetGroupMembers?Group=" + groupName;
+
+    fetch(url)
+        .then(res => res.json())
+        .then(members => {
+            if (members.length == 0) {
+                // No members
+                addItemToMember("No members exist");
+            } else {
+                for (member of members) {
+                    addItemToMember(member);
+                }
+            }
+        });
 }
 
 function groupsPopupInit() {
@@ -107,8 +135,15 @@ function groupsPopupInit() {
                 // No groups
                 addItemToGroup("No groups exist");
             } else {
+                let loadMember = false;
+
                 for (group of groups) {
                     addItemToGroup(group);
+
+                    if (!loadMember) {
+                        loadMembers(group);
+                        loadMember = true;
+                    }
                 }
             }
         });
