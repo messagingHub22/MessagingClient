@@ -1,4 +1,7 @@
-﻿function sendMessage(apiUrl) {
+﻿var currentGroup = ""; // Current selected group
+
+// Send message from server to user. Gets the values from form.
+function sendMessage(apiUrl) {
     var sentTime = new Date().toISOString().slice(0, 19).replace('T', ' ');
     var messageContent = document.getElementById('message').value;
     var messageCategory = document.getElementById('category').value;
@@ -15,7 +18,11 @@
     document.getElementById("serverForm").reset();
     alert("Message submitted")
 
+    setSignalR(apiUrl, messageUser);
+}
 
+// Send message to signalR to reload the user's messages who got this message
+function setSignalR(apiUrl, messageUser) {
     var connection = new signalR.HubConnectionBuilder().withUrl(apiUrl + "/messagingHub").build();
     connection.start().then(function () {
         // After connected
@@ -27,13 +34,13 @@
     });
 }
 
+// Add listeners to category button clicks (exports, system etc.)
 function categoryClickListeners() {
     let exp = document.getElementById("exports")
     let sys = document.getElementById("system")
     let wor = document.getElementById("work")
     let oth = document.getElementById("other")
     let category = document.getElementById("category")
-
 
     exp.addEventListener("click", function () {
         category.value = exp.value;
@@ -52,6 +59,7 @@ function categoryClickListeners() {
     });
 }
 
+// Listener for button to show groups popup
 function groupButtonClickListener() {
     btn = document.getElementById('head-btn');
     box = document.getElementById("groups-popup");
@@ -69,10 +77,11 @@ function groupButtonClickListener() {
 }
 
 function groupAdd() {
-    let groupItem = prompt("Please enter the group name", "name");
+    let groupItem = prompt("Please enter the group name", "groupName");
 
     if (groupItem != null) {
         addItemToGroup(groupItem);
+        currentGroup = groupItem;
     }
 }
 
@@ -82,6 +91,7 @@ function addItemToGroup(groupItem) {
     let newListItem = document.createElement('li');
     newListItem.innerHTML = groupItem;
     newListItem.onclick = function () {
+        currentGroup = newListItem.innerHTML;
         loadMembers(newListItem.innerHTML);
     };
 
@@ -89,10 +99,11 @@ function addItemToGroup(groupItem) {
 }
 
 function memberAdd() {
-    let memberItem = prompt("Please enter member name", "name");
+    let memberItem = prompt("Please enter member name", "memberName");
 
-    if (memberAdd != null) {
+    if (memberItem != null) {
         addItemToMember(memberItem);
+        addMemberToGroup(currentGroup, memberItem);
     }
 }
 
@@ -142,6 +153,8 @@ function groupsPopupInit() {
 
                     if (!loadMember) {
                         loadMembers(group);
+
+                        currentGroup = group;
                         loadMember = true;
                     }
                 }
@@ -149,6 +162,10 @@ function groupsPopupInit() {
         });
 }
 
+function addMemberToGroup(group, member) {
+    var url = "libApi/libAddMemberToGroup?GroupName=" + group + "&MemberName=" + member;
+    fetch(url, { method: 'POST' });
+}
 
 categoryClickListeners();
 groupButtonClickListener();
