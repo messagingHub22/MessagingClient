@@ -17,7 +17,7 @@ function sendMessage(apiUrl) {
     let switchText = document.getElementById('switchText');
     if (switchText.innerHTML.includes("Group")) {
         url += "ToGroup";
-    } 
+    }
 
     url += "?SentTime=" + sentTime + "&Content=" + messageContent + "&MessageCategory=" + messageCategory;
 
@@ -50,27 +50,15 @@ function setSignalR(apiUrl, messageUser) {
 
 // Add listeners to category button clicks (exports, system etc.)
 function categoryClickListeners() {
-    let exp = document.getElementById("exports")
-    let sys = document.getElementById("system")
-    let wor = document.getElementById("work")
-    let oth = document.getElementById("other")
     let category = document.getElementById("category")
+    const buttons = ['exports', 'system', 'work', 'other'];
 
-    exp.addEventListener("click", function () {
-        category.value = exp.value;
-    });
-
-    sys.addEventListener("click", function () {
-        category.value = sys.value;
-    });
-
-    wor.addEventListener("click", function () {
-        category.value = wor.value;
-    });
-
-    oth.addEventListener("click", function () {
-        category.value = oth.value;
-    });
+    for (const button of buttons) {
+        let buttonElement = document.getElementById(button);
+        buttonElement.addEventListener("click", function () {
+            category.value = buttonElement.value;
+        });
+    }
 }
 
 // Listener for button to show groups popup
@@ -78,15 +66,15 @@ function groupButtonClickListener() {
     btn = document.getElementById('head-btn');
     box = document.getElementById("groups-popup");
 
-    let visible = false;
+    box.style.visibility = 'hidden';
+
     btn.addEventListener("click", function () {
-        if (!visible) {
+        if (box.style.visibility == 'hidden') {
             box.style.visibility = 'visible';
         }
         else {
             box.style.visibility = 'hidden';
         }
-        visible = !visible;
     });
 }
 
@@ -97,6 +85,9 @@ function groupAdd() {
     if (groupItem != null) {
         addItemToGroup(groupItem);
         currentGroup = groupItem;
+
+        let membersList = document.getElementById('members-list');
+        membersList.innerHTML = "New groups will not be saved unless you add members to it.";
     }
 }
 

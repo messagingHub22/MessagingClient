@@ -7,6 +7,7 @@ var userName = "";
 // Last update time
 var lastUpdate = "";
 
+// Mark message with this element as read
 function markMessageRead(element) {
     let id = element.getAttribute('messageId');
 
@@ -20,6 +21,7 @@ function markMessageRead(element) {
     document.getElementById("popupBadge").innerHTML = unreadMessagesCount;
 }
 
+// Login as the user in the textbox
 function loginUser(apiUrl) {
     // User name from input
     userName = document.getElementById('userName').value;
@@ -135,6 +137,7 @@ function loadChangedTime() {
         });
 }
 
+// Set signalR to reload the user's messages when new message is received
 function setSignalR(apiUrl) {
     var connection = new signalR.HubConnectionBuilder().withUrl(apiUrl + "/messagingHub").build();
 
@@ -150,22 +153,24 @@ function setSignalR(apiUrl) {
     });
 }
 
+// Click listener for popup button
 function popupClickListener() {
-    const popupBox = document.querySelector("#popupBox");
-    const popupButton = document.querySelector("#popupButton");
+    const popupBox = document.getElementById('popupBox');
+    const popupButton = document.getElementById('popupButton');
 
-    popupButton.addEventListener("click", () => {
+    popupButton.addEventListener('click', () => {
         setTimeout(() => {
             popupBox.style.visibility = 'visible';
         }, 150);
     });
 
-    document.addEventListener("click", (e) => {
-        const isClosest = e.target.closest("#popupBox");
+    document.addEventListener('click', (e) => {
+        const isClosest = e.target.closest('popupBox');
         if (!isClosest) {
             popupBox.style.visibility = 'hidden';
         }
     });
 }
 
+// Add listeners when page starts
 popupClickListener();
