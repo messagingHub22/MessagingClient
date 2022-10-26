@@ -64,5 +64,12 @@ namespace MessagingClient.Controllers
         {
             return await MessagingAPI.GetGroupMembers(Group);
         }
+
+        [HttpPost("libSendMessageToGroup")]
+        public void LibSendMessageToGroup(String SentTime, String Content, String MessageCategory, String MessageGroup)
+        {
+            MessagingAPI.SendMessageToGroup(SentTime, Content, MessageCategory, MessageGroup);
+        }
+
     }
 }

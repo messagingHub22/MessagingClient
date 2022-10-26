@@ -2,17 +2,31 @@
 
 // Send message from server to user. Gets the values from form.
 function sendMessage(apiUrl) {
-    var sentTime = new Date().toISOString().slice(0, 19).replace('T', ' ');
-    var messageContent = document.getElementById('message').value;
-    var messageCategory = document.getElementById('category').value;
-    var messageUser = document.getElementById('user').value;
+    let sentTime = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    let messageContent = document.getElementById('message').value;
+    let messageCategory = document.getElementById('category').value;
+    let messageUser = document.getElementById('user').value;
 
     if (messageContent == null || messageContent == "" || messageCategory == null || messageCategory == "" || messageUser == null || messageUser == "") {
         alert("All fields need to be completed");
         return;
     }
 
-    var url = "libApi/libSendMessage?SentTime=" + sentTime + "&Content=" + messageContent + "&MessageCategory=" + messageCategory + "&MessageUser=" + messageUser;
+    let url = "libApi/libSendMessage";
+
+    let switchText = document.getElementById('switchText');
+    if (switchText.innerHTML.includes("Group")) {
+        url += "ToGroup";
+    } 
+
+    url += "?SentTime=" + sentTime + "&Content=" + messageContent + "&MessageCategory=" + messageCategory;
+
+    if (switchText.innerHTML.includes("Group")) {
+        url += "&MessageGroup=" + messageUser;
+    } else {
+        url += "&MessageUser=" + messageUser;
+    }
+
     fetch(url, { method: 'POST' });
 
     document.getElementById("serverForm").reset();
@@ -23,7 +37,7 @@ function sendMessage(apiUrl) {
 
 // Send message to signalR to reload the user's messages who got this message
 function setSignalR(apiUrl, messageUser) {
-    var connection = new signalR.HubConnectionBuilder().withUrl(apiUrl + "/messagingHub").build();
+    let connection = new signalR.HubConnectionBuilder().withUrl(apiUrl + "/messagingHub").build();
     connection.start().then(function () {
         // After connected
         connection.invoke("ReloadMessage", messageUser).catch(function (exception) {
@@ -76,6 +90,7 @@ function groupButtonClickListener() {
     });
 }
 
+// Display a prompt to add a new group
 function groupAdd() {
     let groupItem = prompt("Please enter the group name", "groupName");
 
@@ -85,6 +100,7 @@ function groupAdd() {
     }
 }
 
+// Add this group to the groups list
 function addItemToGroup(groupItem) {
     let groupsList = document.getElementById('groups-list');
 
@@ -98,6 +114,7 @@ function addItemToGroup(groupItem) {
     groupsList.appendChild(newListItem);
 }
 
+// Display a prompt to add a new member
 function memberAdd() {
     let memberItem = prompt("Please enter member name", "memberName");
 
@@ -107,6 +124,7 @@ function memberAdd() {
     }
 }
 
+// Add this member to the members list
 function addItemToMember(member) {
     let membersList = document.getElementById('members-list');
 
@@ -116,6 +134,7 @@ function addItemToMember(member) {
     membersList.appendChild(newListItem);
 }
 
+// Load members from the group to members list
 function loadMembers(groupName) {
     let membersList = document.getElementById('members-list');
     membersList.innerHTML = "";
@@ -136,6 +155,7 @@ function loadMembers(groupName) {
         });
 }
 
+// Initialize groups to the popup view
 function groupsPopupInit() {
     let url = "libApi/libGetGroups";
 
@@ -146,7 +166,7 @@ function groupsPopupInit() {
                 // No groups
                 addItemToGroup("No groups exist");
             } else {
-                let loadMember = false;
+                let loadMember = false; // To load members of first item to members initially
 
                 for (group of groups) {
                     addItemToGroup(group);
@@ -162,12 +182,30 @@ function groupsPopupInit() {
         });
 }
 
+// Add member to the group
 function addMemberToGroup(group, member) {
-    var url = "libApi/libAddMemberToGroup?GroupName=" + group + "&MemberName=" + member;
+    let url = "libApi/libAddMemberToGroup?GroupName=" + group + "&MemberName=" + member;
     fetch(url, { method: 'POST' });
 }
 
+// Listener for switch user button
+function switchUserListener() {
+    let switchButton = document.getElementById('switchUser');
+    let switchText = document.getElementById('switchText');
+
+    switchButton.addEventListener("click", function () {
+        if (switchText.innerHTML.includes("Group")) {
+            switchText.innerHTML = "Message User:";
+            switchButton.innerHTML = "Switch to Group messaging";
+        } else {
+            switchText.innerHTML = "Message Group:";
+            switchButton.innerHTML = "Switch to User messaging";
+        }
+    });
+}
+
+// Add listeners when page starts
 categoryClickListeners();
 groupButtonClickListener();
-
+switchUserListener();
 groupsPopupInit();
