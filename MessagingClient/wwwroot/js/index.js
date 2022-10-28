@@ -147,7 +147,10 @@ function setSignalR(apiUrl) {
     });
 
     connection.start().then(function () {
-        // Something after connected
+        // Login after connected
+        connection.invoke("LoginUser", userName).catch(function (exception) {
+            return console.error(exception.toString());
+        });
     }).catch(function (exception) {
         return console.error(exception.toString());
     });
