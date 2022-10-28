@@ -5,8 +5,7 @@
 }
 <link rel="stylesheet" href="~/css/userToUser.css" asp-append-version="true">
 
-
-<div class="container">
+@section FullContainer {
     <div class="chatbox">
         <div class="friendlist">
             <h3>
@@ -95,7 +94,7 @@
             </div>
         </div>
     </div>
-</div>
 
-<!-- Script for user messages -->
-<script src="~/js/userMessages.js" asp-append-version="true"></script>
+    <!-- Script for user messages -->
+    <script src="~/js/userMessages.js" asp-append-version="true"></script>
+}

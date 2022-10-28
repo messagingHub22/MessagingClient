@@ -1,22 +1,24 @@
-﻿let id;
-document.getElementById("fl").addEventListener("click", function (e) {
-    id = e.target.id;
-    const lis = document.getElementById(id).innerHTML;
-    let pid = "p" + id;
-    document.getElementById("name").innerHTML = lis;
-    if (pid != 'p1') {
-        var text = document.getElementsByName("msg-row");
-        for (var i = 0; i < text.length; i++) {
-            text[i].style.display = "none";
+﻿function userClickListener() {
+    let id;
+    document.getElementById("fl").addEventListener("click", function (e) {
+        id = e.target.id;
+        const lis = document.getElementById(id).innerHTML;
+        let pid = "p" + id;
+        document.getElementById("name").innerHTML = lis;
+        if (pid != 'p1') {
+            var text = document.getElementsByName("msg-row");
+            for (var i = 0; i < text.length; i++) {
+                text[i].style.display = "none";
+            }
         }
-    }
-    else {
-        var text = document.getElementsByName("msg-row");
-        for (var i = 0; i < text.length; i++) {
-            text[i].style.display = "flex";
+        else {
+            var text = document.getElementsByName("msg-row");
+            for (var i = 0; i < text.length; i++) {
+                text[i].style.display = "flex";
+            }
         }
-    }
-});
+    });
+}
 
 function addfriend() {
     let addfir = prompt("Please enter the name", "");
@@ -39,3 +41,11 @@ function send() {
     }
     document.getElementById("text").value = '';
 }
+
+function hideContainer() {
+    const container = document.getElementById("mainContainer");
+    container.style.height = 0;
+}
+
+userClickListener();
+hideContainer();
