@@ -31,21 +31,6 @@ function sendMessage(apiUrl) {
 
     document.getElementById("serverForm").reset();
     alert("Message submitted")
-
-    setSignalR(apiUrl, messageUser);
-}
-
-// Send message to signalR to reload the user's messages who got this message
-function setSignalR(apiUrl, messageUser) {
-    let connection = new signalR.HubConnectionBuilder().withUrl(apiUrl + "/messagingHub").build();
-    connection.start().then(function () {
-        // After connected
-        connection.invoke("ReloadMessage", messageUser).catch(function (exception) {
-            return console.error(exception.toString());
-        });
-    }).catch(function (exception) {
-        return console.error(exception.toString());
-    });
 }
 
 // Add listeners to category button clicks (exports, system etc.)
