@@ -34,19 +34,6 @@ namespace MessagingClient.Controllers
             return await MessagingAPI.GetMessagesForUser(User);
         }
 
-        [HttpPost("libLoginUser")]
-        public void LibLoginUser(String User)
-        {
-            HubLink.LoginUser(User);
-        }
-
-        [HttpGet("libReloadTime")]
-        public List<string> LibReloadTime(String User)
-        {
-            return new List<string> { HubLink.ChangedTime(User) };
-        }
-
-
         [HttpGet("libGetGroups")]
         public async Task<List<string>> LibGetGroups()
         {

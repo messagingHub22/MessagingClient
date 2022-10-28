@@ -33,23 +33,11 @@ function loginUser(apiUrl) {
     // Show that the user is logged in
     document.getElementById('loginIntro').innerHTML = 'Logged in user: ' + userName;
 
-    // Send the login username to the library
-    libraryLogin();
-
     // Load messages in popup
     loadMessagesForUser();
 
     // Set signalR
     setSignalR(apiUrl);
-
-    // Set timer if you want to use the hubConnection from library. Not reccommended. Asks for update every second from library. Use client signalR instead.
-    // setInterval(loadChangedTime, 1000);
-}
-
-// Send user login to library
-function libraryLogin() {
-    let url = "libApi/libLoginUser?User=" + userName;
-    fetch(url, { method: 'POST' });
 }
 
 // Load messages for the user in the popup
@@ -115,35 +103,14 @@ function loadMessagesForUser() {
         });
 }
 
-
-// Get the reload time for the messages for the user
-function loadChangedTime() {
-    let url = "libApi/libReloadTime?User=" + userName;
-
-    fetch(url)
-        .then(res => res.json())
-        .then(messages => {
-            let oldTime = lastUpdate;
-            lastUpdate = messages[0];
-
-            // Do not reload just after login
-            if (oldTime == "")
-                return;
-
-            // Reload messages if new one arrived
-            if (oldTime != lastUpdate)
-                loadMessagesForUser();
-
-        });
-}
-
 // Set signalR to reload the user's messages when new message is received
 function setSignalR(apiUrl) {
     var connection = new signalR.HubConnectionBuilder().withUrl(apiUrl + "/messagingHub").build();
 
     connection.on("ReloadMessageClient", function (user) {
-        if (user == userName)
+        if (user == userName) {
             loadMessagesForUser();
+        }
     });
 
     connection.start().then(function () {
