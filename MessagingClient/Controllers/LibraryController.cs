@@ -10,6 +10,8 @@ namespace MessagingClient.Controllers
     [ApiController]
     public class LibraryController : ControllerBase
     {
+        // Server messages methods
+
         [HttpPost("libSendMessage")]
         public void LibSendMessage(String SentTime, String Content, String MessageCategory, String MessageUser)
         {
@@ -34,6 +36,9 @@ namespace MessagingClient.Controllers
             return await MessagingAPI.GetMessagesForUser(User);
         }
 
+
+        // Groups methods
+
         [HttpGet("libGetGroups")]
         public async Task<List<string>> LibGetGroups()
         {
@@ -56,6 +61,27 @@ namespace MessagingClient.Controllers
         public void LibSendMessageToGroup(String SentTime, String Content, String MessageCategory, String MessageGroup)
         {
             MessagingAPI.SendMessageToGroup(SentTime, Content, MessageCategory, MessageGroup);
+        }
+
+
+        // User Messages methods
+
+        [HttpGet("libGetUserMessages")]
+        public async Task<List<MessageUser>> LibGetUserMessages(String MessageFrom, String MessageTo)
+        {
+            return await MessagingAPI.GetUserMessages(MessageFrom, MessageTo);
+        }
+
+        [HttpGet("libGetMessagedUsers")]
+        public async Task<List<string>> LibGetMessagedUsers(String User)
+        {
+            return await MessagingAPI.GetMessagedUsers(User);
+        }
+
+        [HttpPost("libSendUserMessage")]
+        public void LibSendUserMessage(String SentTime, String Content, String MessageFrom, String MessageTo)
+        {
+            MessagingAPI.SendUserMessage(SentTime, Content, MessageFrom, MessageTo);
         }
 
     }
