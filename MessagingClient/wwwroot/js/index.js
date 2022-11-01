@@ -105,19 +105,22 @@ function loadMessagesForUser() {
 
 // Set signalR to reload the user's messages when new message is received
 function setSignalR(apiUrl) {
-    var connection = new signalR.HubConnectionBuilder().withUrl(apiUrl + "/messagingHub").build();
+    var connection = new signalR.HubConnectionBuilder().withUrl(apiUrl + "/messagingHub" + "?username=" + userName).build();
 
     connection.on("ReloadMessageClient", function (user) {
         if (user == userName) {
+            // Reload messages
             loadMessagesForUser();
         }
     });
 
+    connection.on("ReloadClientUser", function () {
+        // Reload messages
+        loadMessagesForUser();
+    });
+
     connection.start().then(function () {
-        // Login after connected
-        connection.invoke("LoginUser", userName).catch(function (exception) {
-            return console.error(exception.toString());
-        });
+        // Execute something after connected to signalR
     }).catch(function (exception) {
         return console.error(exception.toString());
     });
