@@ -47,5 +47,21 @@ function hideContainer() {
     container.style.height = 0;
 }
 
+function popupListener() {
+    window.addEventListener("load", function () {
+        setTimeout(
+            function open() {
+                document.querySelector(".popup").style.display = "block";
+            },
+            100
+        )
+    });
+
+    document.querySelector("#close").addEventListener("click", function () {
+        document.querySelector(".popup").style.display = "none";
+    });
+}
+
 userClickListener();
 hideContainer();
+popupListener();
