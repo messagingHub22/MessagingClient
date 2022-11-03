@@ -107,6 +107,7 @@ function loadMessagesForUser() {
 function setSignalR(apiUrl) {
     var connection = new signalR.HubConnectionBuilder().withUrl(apiUrl + "/messagingHub" + "?username=" + userName).build();
 
+    // Not used anymore. When anybody receives new messages, return user here and reload if needed.
     connection.on("ReloadMessageClient", function (user) {
         if (user == userName) {
             // Reload messages
@@ -114,6 +115,7 @@ function setSignalR(apiUrl) {
         }
     });
 
+    // When current user receives new message
     connection.on("ReloadClientUser", function () {
         // Reload messages
         loadMessagesForUser();

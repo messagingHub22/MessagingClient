@@ -42,6 +42,7 @@ function send() {
     document.getElementById("text").value = '';
 }
 
+// Set container height to 0 as full container will be used
 function hideContainer() {
     const container = document.getElementById("mainContainer");
     container.style.height = 0;
@@ -62,6 +63,13 @@ function popupListener() {
     });
 }
 
+// Remove space from top of page
+function removeMb3() {
+    let nav = document.getElementsByTagName("nav")[0];
+    nav.classList.remove("mb-3");
+}
+
 userClickListener();
-hideContainer();
 popupListener();
+hideContainer();
+removeMb3();
