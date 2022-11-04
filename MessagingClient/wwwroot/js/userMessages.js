@@ -1,11 +1,12 @@
-﻿function userClickListener() {
-    let id;
+﻿let idbefore = "";
+function userClickListener() {
     document.getElementById("fl").addEventListener("click", function (e) {
-        id = e.target.id;
+        let id = e.target.id;
         const lis = document.getElementById(id).innerHTML;
         let pid = "p" + id;
+
         document.getElementById("name").innerHTML = lis;
-        if (pid != 'p1') {
+        if (pid != idbefore) {
             var text = document.getElementsByName("msg-row");
             for (var i = 0; i < text.length; i++) {
                 text[i].style.display = "none";
@@ -17,6 +18,7 @@
                 text[i].style.display = "flex";
             }
         }
+        idbefore = pid;
     });
 }
 
@@ -34,9 +36,24 @@ function addfriend() {
 
 function send() {
     let messagenew = document.getElementById("text").value;
+    addClientMessage(messagenew);
+}
+
+function addClientMessage(msg) {
     let divmessage = document.getElementById('message');
-    if (messagenew != '') {
-        divmessage.innerHTML += '<div class="msg-row msg-row2" name="msg-row"><div class="msg-text text2"><h2>Beck </h2><p> ' + messagenew + '</p></div></div> ';
+    divmessage.innerHTML += '<div id =' + idbefore + '>';
+    if (msg != '') {
+        divmessage.innerHTML += '<div class="msg-row msg-row2" name="msg-row"><div class="msg-text text2"><h2>Beck </h2><p> ' + msg + '</p></div></div></div>';
+        divmessage.scrollBy(0, 1000);
+    }
+    document.getElementById("text").value = '';
+}
+
+function addUserMessage(msg) {
+    let divmessage = document.getElementById('message');
+    divmessage.innerHTML += '<div id =' + idbefore + '>';
+    if (msg != '') {
+        divmessage.innerHTML += '<div class="msg-row" name="msg-row"><div class="msg-text"><h2>Beck </h2><p> ' + msg + '</p></div></div></div>';
         divmessage.scrollBy(0, 1000);
     }
     document.getElementById("text").value = '';

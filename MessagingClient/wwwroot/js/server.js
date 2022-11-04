@@ -48,17 +48,23 @@ function categoryClickListeners() {
 
 // Listener for button to show groups popup
 function groupButtonClickListener() {
-    btn = document.getElementById('head-btn');
-    box = document.getElementById("groups-popup");
+    const btn = document.querySelector("#head-btn");
+    const box = document.querySelector("#groups-popup");
+    const blur = document.getElementById("allthing").classList;
 
-    box.style.visibility = 'hidden';
-
-    btn.addEventListener("click", function () {
-        if (box.style.visibility == 'hidden') {
+    btn.addEventListener("click", () => {
+        setTimeout(() => {
             box.style.visibility = 'visible';
-        }
-        else {
+            blur.add("blur");
+        }, 150);
+
+    });
+
+    document.addEventListener("click", (e) => {
+        const isClosest = e.target.closest("#groups-popup");
+        if (!isClosest) {
             box.style.visibility = 'hidden';
+            blur.remove("blur");
         }
     });
 }
