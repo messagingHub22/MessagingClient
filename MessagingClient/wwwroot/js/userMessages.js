@@ -44,7 +44,7 @@ function addClientMessage(msg) {
     divmessage.innerHTML += '<div id =' + idbefore + '>';
     if (msg != '') {
         divmessage.innerHTML += '<div class="msg-row msg-row2" name="msg-row"><div class="msg-text text2"><h2>Beck </h2><p> ' + msg + '</p></div></div></div>';
-        divmessage.scrollBy(0, 1000);
+        divmessage.scrollTop = divmessage.scrollHeight;
     }
     document.getElementById("text").value = '';
 }
@@ -54,7 +54,7 @@ function addUserMessage(msg) {
     divmessage.innerHTML += '<div id =' + idbefore + '>';
     if (msg != '') {
         divmessage.innerHTML += '<div class="msg-row" name="msg-row"><div class="msg-text"><h2>Beck </h2><p> ' + msg + '</p></div></div></div>';
-        divmessage.scrollBy(0, 1000);
+        divmessage.scrollTop = divmessage.scrollHeight;
     }
     document.getElementById("text").value = '';
 }
@@ -85,6 +85,13 @@ function removeMb3() {
     let nav = document.getElementsByTagName("nav")[0];
     nav.classList.remove("mb-3");
 }
+
+document.getElementById("text").addEventListener("keyup", function (event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        document.getElementById("send").click();
+    }
+});
 
 userClickListener();
 popupListener();

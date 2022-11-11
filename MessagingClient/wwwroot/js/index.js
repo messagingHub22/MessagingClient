@@ -146,6 +146,11 @@ function popupClickListener() {
         }
     });
 }
-
+document.getElementById("userName").addEventListener("keyup", function (event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        document.getElementById("Submit").click();
+    }
+});
 // Add listeners when page starts
 popupClickListener();
