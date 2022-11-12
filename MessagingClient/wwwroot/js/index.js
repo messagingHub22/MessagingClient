@@ -4,9 +4,6 @@ var unreadMessagesCount = 0;
 // User name
 var userName = "";
 
-// Last update time
-var lastUpdate = "";
-
 // Mark message with this element as read
 function markMessageRead(element) {
     let id = element.getAttribute('messageId');
