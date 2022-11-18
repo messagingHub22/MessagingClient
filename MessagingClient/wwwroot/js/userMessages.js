@@ -156,7 +156,9 @@ function loadUserMessages() {
                 for (user of users) {
                     addFriendToList(user);
                 }
+
                 loadMessages(users[0]);
+                document.getElementById("name").innerHTML = users[0];
             }
         });
 }
