@@ -57,6 +57,7 @@ function send() {
     fetch(url, { method: 'POST' });
 }
 
+// Right side blue color
 function addClientMessage(msg) {
     let divmessage = document.getElementById('message');
     divmessage.innerHTML += '<div id =' + idbefore + '>';
@@ -67,6 +68,7 @@ function addClientMessage(msg) {
     document.getElementById("text").value = '';
 }
 
+// Left side gray color
 function addUserMessage(msg) {
     let divmessage = document.getElementById('message');
     divmessage.innerHTML += '<div id =' + idbefore + '>';
@@ -170,7 +172,7 @@ function loadMessages(messageTo) {
                 addUserMessage("No messages");
             } else {
                 for (message of messages) {
-                    if (message.MessageFrom == userName) {
+                    if (message.messageFrom == userName) {
                         addClientMessage(message.content);
                     } else {
                         addUserMessage(message.content);
