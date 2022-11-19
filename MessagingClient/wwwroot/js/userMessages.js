@@ -103,7 +103,7 @@ document.getElementById("text").addEventListener("keyup", function (event) {
 // Submit button
 function loginUser(apiUrl) {
     userName = document.getElementById('loginName').value;
-    loadUserMessages();
+    loadUserMessages(true);
     setSignalR(apiUrl);
     document.getElementById('close').click();
 }
@@ -121,6 +121,23 @@ function setSignalR(apiUrl) {
             divmessage.innerHTML = '';
 
             loadMessages(from);
+        } else {
+            // Reload users list if new user message's user is not there
+            const ul = document.getElementById("fl");
+            const friendItems = ul.getElementsByTagName('li');
+            let listContains = false;
+
+            for (let i = 0; i <= friendItems.length - 1; i++) {
+                let item = friendItems[i];
+                if (item == from) {
+                    listContains = true;
+                    break;
+                }
+            }
+
+            if (!listContains) {
+                loadUserMessages(false);
+            }
         }
     });
 
@@ -132,7 +149,7 @@ function setSignalR(apiUrl) {
 }
 
 // Load all the messages
-function loadUserMessages() {
+function loadUserMessages(init) {
     let usersList = document.getElementById("fl");
     usersList.innerHTML = "";
 
@@ -150,8 +167,10 @@ function loadUserMessages() {
                     addFriendToList(user);
                 }
 
-                loadMessages(users[0]);
-                document.getElementById("name").innerHTML = users[0];
+                if (init) {
+                    loadMessages(users[0]);
+                    document.getElementById("name").innerHTML = users[0];
+                }
             }
         });
 }
