@@ -1,32 +1,19 @@
 ﻿// User name
 var userName = "";
 
-let idbefore = "";
-
 function userClickListener() {
     document.getElementById("fl").addEventListener("click", function (e) {
         let id = e.target.id;
-        const lis = document.getElementById(id).innerHTML;
-        let pid = "p" + id;
 
-        document.getElementById("name").innerHTML = lis;
+        const nextUser = document.getElementById(id).innerHTML;
+        document.getElementById("name").innerHTML = nextUser;
 
-        if (pid != idbefore) {
-            var text = document.getElementsByName("msg-row");
-            for (var i = 0; i < text.length; i++) {
-                text[i].style.display = "none";
-            }
-        }
-        else {
-            var text = document.getElementsByName("msg-row");
-            for (var i = 0; i < text.length; i++) {
-                text[i].style.display = "flex";
-            }
-        }
-        idbefore = pid;
+        // Remove all current messages from list
+        let divmessage = document.getElementById('message');
+        divmessage.innerHTML = '';
 
         // Load messages for current clicked user
-        loadMessages(lis);
+        loadMessages(nextUser);
     });
 }
 
@@ -60,7 +47,7 @@ function send() {
 // Right side blue color
 function addClientMessage(msg) {
     let divmessage = document.getElementById('message');
-    divmessage.innerHTML += '<div id =' + idbefore + '>';
+    divmessage.innerHTML += '<div>';
     if (msg != '') {
         divmessage.innerHTML += '<div class="msg-row msg-row2" name="msg-row"><div class="msg-text text2"><h2>' + userName + '</h2><p> ' + msg + '</p></div></div></div>';
         divmessage.scrollTop = divmessage.scrollHeight;
@@ -71,7 +58,7 @@ function addClientMessage(msg) {
 // Left side gray color
 function addUserMessage(msg) {
     let divmessage = document.getElementById('message');
-    divmessage.innerHTML += '<div id =' + idbefore + '>';
+    divmessage.innerHTML += '<div>';
     if (msg != '') {
         divmessage.innerHTML += '<div class="msg-row" name="msg-row"><div class="msg-text"><h2>' + document.getElementById("name").innerHTML + '</h2><p> ' + msg + '</p></div></div></div>';
         divmessage.scrollTop = divmessage.scrollHeight;
@@ -126,9 +113,15 @@ function setSignalR(apiUrl) {
     var connection = new signalR.HubConnectionBuilder().withUrl(apiUrl + "/messagingHub" + "?userMessageName=" + userName).build();
 
     // When current user receives new message
-    connection.on("ReloadClientUserMessage", function () {
-        // Reload messages
-        loadUserMessages();
+    connection.on("ReloadClientUserMessage", function (from) {
+        let currentChat = document.getElementById("name").innerHTML;
+
+        if (from == currentChat) {
+            let divmessage = document.getElementById('message');
+            divmessage.innerHTML = '';
+
+            loadMessages(from);
+        }
     });
 
     connection.start().then(function () {
