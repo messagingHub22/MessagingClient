@@ -103,6 +103,13 @@ document.getElementById("text").addEventListener("keyup", function (event) {
 // Submit button
 function loginUser(apiUrl) {
     userName = document.getElementById('loginName').value;
+    userName = userName.toLowerCase();
+
+    if (userName == null || userName == "") {
+        alert("Username cannot be empty");
+        return;
+    }
+
     loadUserMessages(true);
     setSignalR(apiUrl);
     document.getElementById('close').click();

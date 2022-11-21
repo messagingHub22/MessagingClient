@@ -1,7 +1,7 @@
 ﻿var currentGroup = ""; // Current selected group
 
 // Send message from server to user. Gets the values from form.
-function sendMessage(apiUrl) {
+function sendMessage() {
     let sentTime = new Date().toISOString().slice(0, 19).replace('T', ' ');
     let messageContent = document.getElementById('message').value;
     let messageCategory = document.getElementById('category').value;

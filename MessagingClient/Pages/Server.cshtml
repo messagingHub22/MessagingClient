@@ -1,5 +1,4 @@
 ﻿@page
-@using MessagingLibrary
 @model ServerModel
 @{
     ViewData["Title"] = "Server";
@@ -33,7 +32,7 @@
 
     <br>
     <br>
-    <input type="button" value="Submit" onclick="sendMessage('@MessagingAPI.ApiUrl')">
+    <input type="button" value="Submit" onclick="sendMessage()">
 </form>
 </div>
 
