@@ -76,15 +76,18 @@ function groupAdd() {
     if (groupItem != null) {
         addItemToGroup(groupItem);
         currentGroup = groupItem;
-
-        let membersList = document.getElementById('members-list');
-        membersList.innerHTML = "New groups will not be saved unless you add members to it.";
+        loadMembers(groupItem);
     }
 }
 
 // Add this group to the groups list
 function addItemToGroup(groupItem) {
     let groupsList = document.getElementById('groups-list');
+
+    let emptyGroupsItem = document.getElementById('emptyGroupsItem');
+    if (emptyGroupsItem != null) {
+        groupsList.removeChild(emptyGroupsItem);
+    }
 
     let newListItem = document.createElement('li');
     newListItem.innerHTML = groupItem;
@@ -100,6 +103,12 @@ function addItemToGroup(groupItem) {
 function memberAdd() {
     let memberItem = prompt("Please enter member name", "memberName");
 
+    let emptyGroupsItem = document.getElementById('emptyGroupsItem');
+    if (emptyGroupsItem != null) {
+        alert("You need to add a group before you can add any member.");
+        return;
+    }
+
     if (memberItem != null) {
         addItemToMember(memberItem);
         addMemberToGroup(currentGroup, memberItem);
@@ -110,6 +119,11 @@ function memberAdd() {
 function addItemToMember(member) {
     let membersList = document.getElementById('members-list');
 
+    let emptyGroupMemberItem = document.getElementById('emptyGroupMemberItem');
+    if (emptyGroupMemberItem != null) {
+        membersList.removeChild(emptyGroupMemberItem);
+    }
+
     let newListItem = document.createElement('li');
     newListItem.innerHTML = member;
 
@@ -119,7 +133,7 @@ function addItemToMember(member) {
 // Load members from the group to members list
 function loadMembers(groupName) {
     let membersList = document.getElementById('members-list');
-    membersList.innerHTML = "";
+    membersList.innerHTML = '';
 
     let url = "libApi/libGetGroupMembers?Group=" + groupName;
 
@@ -128,7 +142,12 @@ function loadMembers(groupName) {
         .then(members => {
             if (members.length == 0) {
                 // No members
-                addItemToMember("No members exist");
+                let membersList = document.getElementById('members-list');
+
+                let emptyGroupMemberItem = document.createElement('li');
+                emptyGroupMemberItem.innerHTML = 'New groups without members are not saved.';
+                emptyGroupMemberItem.id = 'emptyGroupMemberItem';
+                membersList.appendChild(emptyGroupMemberItem);
             } else {
                 for (member of members) {
                     addItemToMember(member);
@@ -146,7 +165,12 @@ function groupsPopupInit() {
         .then(groups => {
             if (groups.length == 0) {
                 // No groups
-                addItemToGroup("No groups exist");
+                let groupsList = document.getElementById('groups-list');
+
+                let emptyGroupsItem = document.createElement('li');
+                emptyGroupsItem.innerHTML = 'No groups exist';
+                emptyGroupsItem.id = 'emptyGroupsItem';
+                groupsList.appendChild(emptyGroupsItem);
             } else {
                 let loadMember = false; // To load members of first item to members initially
 
