@@ -14,6 +14,8 @@
 .friendlist {
     width: 20%;
     height: 100%;
+    display: inline-block;
+    width: 200px;
 }
 
     .friendlist h3 {
