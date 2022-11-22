@@ -82,8 +82,11 @@ function popupListener() {
         )
     });
 
-    document.querySelector("#close").addEventListener("click", function () {
-        document.querySelector(".popup").style.display = "none";
+    document.getElementById("loginName").addEventListener("keyup", function (event) {
+        event.preventDefault();
+        if (event.keyCode === 13) {
+            document.getElementById("submitButton").click();
+        }
     });
 }
 
@@ -112,7 +115,7 @@ function loginUser(apiUrl) {
 
     loadUserMessages(true);
     setSignalR(apiUrl);
-    document.getElementById('close').click();
+    document.querySelector(".popup").style.display = "none";
 }
 
 // Set signalR to reload the user messages when new message is received

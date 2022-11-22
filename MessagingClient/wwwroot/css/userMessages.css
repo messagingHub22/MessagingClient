@@ -156,11 +156,13 @@ body {
 
 .popup {
     background-color: #E6E6E6;
-    padding: 30px 40px;
+    padding: 30px 50px;
+    padding-left: max(50px, 5%);
+    padding-right: max(50px, 5%);
     position: absolute;
     transform: translate(-50%,-50%);
     margin: 30px auto;
-    width: 640px;
+    max-width: 640px;
     left: 50%;
     top: 45%;
     border-radius: 8px;
