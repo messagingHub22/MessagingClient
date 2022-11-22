@@ -18,6 +18,11 @@ function userClickListener() {
 }
 
 function addfriend() {
+    if (userName == '') {
+        alert("Cannot add friend without login.");
+        return;
+    }
+
     let addfir = prompt("Please enter the name", "");
     if (addfir != null) {
         addFriendToList(addfir);
@@ -34,7 +39,18 @@ function addFriendToList(name) {
 }
 
 function send() {
+    if (userName == '') {
+        alert("Cannot send message without login.");
+        return;
+    }
+
     let messageContent = document.getElementById("text").value;
+
+    if (messageContent == '') {
+        alert("Cannot send empty message.");
+        return;
+    }
+
     addClientMessage(messageContent);
 
     let sentTime = new Date().toISOString().slice(0, 19).replace('T', ' ');
@@ -99,7 +115,7 @@ function removeMb3() {
 document.getElementById("text").addEventListener("keyup", function (event) {
     event.preventDefault();
     if (event.keyCode === 13) {
-        document.getElementById("send").click();
+        send();
     }
 });
 
