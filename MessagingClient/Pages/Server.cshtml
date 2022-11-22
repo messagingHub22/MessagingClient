@@ -7,33 +7,33 @@
 <!-- Stylesheet for the page -->
 <link rel="stylesheet" href="~/css/server.css" asp-append-version="true" />
 <div id="allthing">
-<h1>@ViewData["Title"]</h1>
+    <h1>@ViewData["Title"]</h1>
 
-<p>This page is for sending messages to users from server.</p>
+    <p>This page is for sending messages to users from server.</p>
 
-<form id="serverForm">
-    <label for="message">Message Content:</label>
-    <input type="text" id="message" name="message">
-    <br>
-    <br>
-    <label for="user" id="switchText">Message User:</label>
-    <input type="text" id="user" name="user">
-    <button type="button" id="switchUser">Switch to Group messaging</button>
-    <br>
-    <br>
-    <label for="category">Message Category:</label>
-    <input type="text" id="category" name="category" value="Other">
+    <form id="serverForm">
+        <label for="message">Message Content:</label>
+        <input type="text" id="message" name="message">
+        <br>
+        <br>
+        <label for="user" id="switchText">Message User:</label>
+        <input type="text" id="user" name="user">
+        <button type="button" id="switchUser">Switch to Group messaging</button>
+        <br>
+        <br>
+        <label for="category">Message Category:</label>
+        <input type="text" id="category" name="category" value="Other">
 
-    &emsp;
-    <button type="button" id="exports" value="Exports">Exports</button>
-    <button type="button" id="system" value="SystemEvents">SystemEvents</button>
-    <button type="button" id="work" value="WorkTasks">WorkTasks</button>
-    <button type="button" id="other" value="Other">Other</button>
+        &emsp;
+        <button type="button" id="exports" value="Exports">Exports</button>
+        <button type="button" id="system" value="SystemEvents">SystemEvents</button>
+        <button type="button" id="work" value="WorkTasks">WorkTasks</button>
+        <button type="button" id="other" value="Other">Other</button>
 
-    <br>
-    <br>
-    <input type="button" value="Submit" onclick="sendMessage()">
-</form>
+        <br>
+        <br>
+        <button id="Submit" onclick="sendMessage()">Submit</button>
+    </form>
 </div>
 
 
@@ -43,9 +43,7 @@
 
         <div class="head">
             <h1>Groups</h1>
-            <div class="btn">
-                <button id="groupsButton" onclick="groupAdd()">ADD+</button>
-            </div>
+            <button id="groupsButton" onclick="groupAdd()"><img src="~/Images/icon-add.png"></button>
         </div>
         <ul id="groups-list">
         </ul>
@@ -56,9 +54,7 @@
 
         <div class="head">
             <h1>Members</h1>
-            <div class="btn">
-                <button id="membersButton" onclick="memberAdd()">ADD+</button>
-            </div>
+            <button id="membersButton" onclick="memberAdd()"><img src="~/Images/icon-add.png"></button>
         </div>
         <ul id="members-list">
         </ul>
@@ -66,7 +62,7 @@
     </div>
 </div>
 
-<button id="head-btn" type="button">Groups</button>
+<button id="head-btn">Groups</button>
 
 <!-- Script for server items -->
 <script src="~/js/server.js" asp-append-version="true"></script>

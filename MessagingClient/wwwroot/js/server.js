@@ -53,11 +53,15 @@ function groupButtonClickListener() {
     const blur = document.getElementById("allthing").classList;
 
     btn.addEventListener("click", () => {
-        setTimeout(() => {
-            box.style.visibility = 'visible';
-            blur.add("blur");
-        }, 150);
-
+        if (box.style.visibility == 'visible') {
+            box.style.visibility = 'hidden';
+        }
+        else {
+            setTimeout(() => {
+                box.style.visibility = 'visible';
+                blur.add("blur");
+            }, 150);
+        }
     });
 
     document.addEventListener("click", (e) => {
@@ -209,6 +213,15 @@ function switchUserListener() {
         }
     });
 }
+
+document.querySelectorAll('#message,#user,#category').forEach(el => {
+    el.addEventListener("keyup", function (event) {
+        event.preventDefault();
+        if (event.keyCode === 13) {
+            document.getElementById("Submit").click();
+        }
+    });
+});
 
 // Add listeners when page starts
 categoryClickListeners();
