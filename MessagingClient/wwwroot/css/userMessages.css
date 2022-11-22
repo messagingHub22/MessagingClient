@@ -16,14 +16,24 @@
     height: 100%;
 }
 
-    .friendlist h3 {
-        line-height: 70px;
-        text-align: center;
-        height: 70px;
-        font-weight: 400;
-        cursor: pointer;
-        background: #ededed;
+#friendAdd {
+    height: 70px;
+    cursor: pointer;
+    background: #ededed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    #friendAdd h5 {
+        flex: 1;
+        margin-left: 24px;
     }
+
+    #friendAdd button {
+        flex: 1;
+    }
+
 
 .chat {
     width: 80%;
@@ -58,10 +68,8 @@
     }
 
 .newmessage {
-    position: relative;
     width: 30px;
     height: 30px;
-    left: 30px;
     outline: none;
     border: none;
     background: #ededed;

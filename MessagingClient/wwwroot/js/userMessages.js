@@ -113,6 +113,8 @@ function loginUser(apiUrl) {
         return;
     }
 
+    document.getElementById("loggedName").innerHTML = 'Logged in as: ' + userName;
+
     loadUserMessages(true);
     setSignalR(apiUrl);
     document.querySelector(".popup").style.display = "none";
