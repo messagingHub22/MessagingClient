@@ -1,11 +1,12 @@
 ﻿#groups-popup {
     height: 70%;
-    width: 55%;
     background-color: white;
     border: 2px solid black;
-    position: absolute;
-    top: 5.5rem;
-    left: 17rem;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -26,7 +27,7 @@
 }
 
 .groups-box h1 {
-    margin-left: 125px;
+    margin-left: 25px;
 }
 
 .groups-box button {
@@ -47,7 +48,7 @@
 }
 
 .members-box h1 {
-    margin-left: 125px;
+    margin-left: 25px;
 }
 
 .members-box button {
@@ -65,12 +66,8 @@
     border-bottom: 2px solid black;
 }
 
-
-
 #head-btn {
-    position: absolute;
-    top: 5.5rem;
-    right: 12.5rem;
+    float: right;
 }
 
 #groups-list li {
@@ -131,4 +128,10 @@
     margin: 0;
     padding: 0;
     /* background: #E2E2E2;*/
+}
+
+@media only screen and (max-width: 800px) {
+    #groups-popup {
+        width: 95%;
+    }
 }
