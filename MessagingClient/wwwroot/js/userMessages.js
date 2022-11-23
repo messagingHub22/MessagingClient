@@ -5,6 +5,10 @@ function userClickListener() {
     document.getElementById("fl").addEventListener("click", function (e) {
         let id = e.target.id;
 
+        if (id == 'fl' || id == 'emptyFriendTitle') {
+            return;
+        }
+
         const nextUser = document.getElementById(id).innerHTML;
         document.getElementById("name").innerHTML = nextUser;
 
@@ -30,6 +34,8 @@ function addfriend() {
 }
 
 function addFriendToList(name) {
+    removeEmptyFriendTitle();
+
     let ul = document.getElementById("fl");
     let li = document.createElement("li");
     let addone = ul.children.length + 1;
@@ -51,10 +57,16 @@ function send() {
         return;
     }
 
-    addClientMessage(messageContent);
 
     let sentTime = new Date().toISOString().slice(0, 19).replace('T', ' ');
     let messageTo = document.getElementById("name").innerHTML;
+
+    if (messageTo == '') {
+        alert("Cannot send message without selecting user");
+        return;
+    }
+
+    addClientMessage(messageContent);
 
     let url = "libApi/libSendUserMessage?SentTime=" + sentTime + "&Content=" + messageContent + "&MessageFrom=" + userName + "&MessageTo=" + messageTo;
     fetch(url, { method: 'POST' });
@@ -62,6 +74,8 @@ function send() {
 
 // Right side blue color
 function addClientMessage(msg) {
+    removeEmptyTitle();
+
     let divmessage = document.getElementById('message');
     divmessage.innerHTML += '<div>';
     if (msg != '') {
@@ -73,6 +87,8 @@ function addClientMessage(msg) {
 
 // Left side gray color
 function addUserMessage(msg) {
+    removeEmptyTitle();
+
     let divmessage = document.getElementById('message');
     divmessage.innerHTML += '<div>';
     if (msg != '') {
@@ -80,6 +96,46 @@ function addUserMessage(msg) {
         divmessage.scrollTop = divmessage.scrollHeight;
     }
     document.getElementById("text").value = '';
+}
+
+// Empty title
+function addEmptyTitle() {
+    let divmessage = document.getElementById('message');
+
+    let emptyTitleItem = document.createElement('h1');
+    emptyTitleItem.innerHTML = 'No messages';
+    emptyTitleItem.id = 'emptyTitleItem';
+
+    divmessage.appendChild(emptyTitleItem);
+}
+
+// Remove empty title
+function removeEmptyTitle() {
+    let divmessage = document.getElementById('message');
+    let emptyTitleItem = document.getElementById('emptyTitleItem');
+    if (emptyTitleItem != null) {
+        divmessage.removeChild(emptyTitleItem);
+    }
+}
+
+// Empty friend title
+function addEmptyFriendTitle() {
+    let ul = document.getElementById("fl");
+
+    let emptyFriendTitle = document.createElement('li');
+    emptyFriendTitle.innerHTML = 'No users messaged';
+    emptyFriendTitle.id = 'emptyFriendTitle';
+
+    ul.appendChild(emptyFriendTitle);
+}
+
+// Remove empty friend title
+function removeEmptyFriendTitle() {
+    let ul = document.getElementById("fl");
+    let emptyFriendTitle = document.getElementById('emptyFriendTitle');
+    if (emptyFriendTitle != null) {
+        ul.removeChild(emptyFriendTitle);
+    }
 }
 
 function popupListener() {
@@ -98,12 +154,6 @@ function popupListener() {
             document.getElementById("submitButton").click();
         }
     });
-}
-
-// Remove space from top of page
-function removeMb3() {
-    let nav = document.getElementsByTagName("nav")[0];
-    nav.classList.remove("mb-3");
 }
 
 document.getElementById("text").addEventListener("keyup", function (event) {
@@ -170,7 +220,7 @@ function setSignalR(apiUrl) {
     });
 }
 
-// Load all the messages
+// Load the users list again. Also the messages for first user if init is true
 function loadUserMessages(init) {
     let usersList = document.getElementById("fl");
     usersList.innerHTML = "";
@@ -182,8 +232,8 @@ function loadUserMessages(init) {
         .then(users => {
             if (users.length == 0 || !Array.isArray(users)) {
                 // No users
-                addFriendToList("No users messaged");
-                addUserMessage("No messages");
+                addEmptyFriendTitle();
+                addEmptyTitle();
             } else {
                 for (user of users) {
                     addFriendToList(user);
@@ -197,6 +247,7 @@ function loadUserMessages(init) {
         });
 }
 
+// Load all the messages for this user
 function loadMessages(messageTo) {
     let url = "libApi/libGetUserMessages?MessageFrom=" + userName + "&MessageTo=" + messageTo;
 
@@ -205,7 +256,7 @@ function loadMessages(messageTo) {
         .then(messages => {
             if (messages.length == 0 || !Array.isArray(messages)) {
                 // No messages
-                addUserMessage("No messages");
+                addEmptyTitle();
             } else {
                 for (message of messages) {
                     if (message.messageFrom == userName) {
@@ -220,4 +271,3 @@ function loadMessages(messageTo) {
 
 userClickListener();
 popupListener();
-removeMb3();

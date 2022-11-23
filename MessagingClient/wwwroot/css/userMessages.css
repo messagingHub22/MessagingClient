@@ -55,8 +55,9 @@
 
 .friendlist ul {
     background: white;
-    overflow-y: auto;
+    overflow-y: scroll;
     height: calc(100% - 70px);
+    padding: 0;
 }
 
     .friendlist ul::-webkit-scrollbar {
@@ -125,10 +126,6 @@
     height: calc(100% - 70px - 50px);
     overflow-y: scroll;
 }
-
-    .message::-webkit-scrollbar {
-        display: none;
-    }
 
 .sendinput {
     width: 100%;
@@ -233,4 +230,8 @@ nav {
     .friendlist h5 {
         display: none;
     }
+}
+
+#emptyTitleItem {
+    margin: 40px;
 }
