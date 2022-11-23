@@ -7,7 +7,7 @@
 
 .chatbox {
     width: 100%;
-    height: 60vh;
+    height: calc(100% - 50px);
     display: flex;
 }
 
@@ -56,7 +56,7 @@
 .friendlist ul {
     background: white;
     overflow-y: auto;
-    height: 100%;
+    height: calc(100% - 70px);
 }
 
     .friendlist ul::-webkit-scrollbar {
@@ -122,8 +122,8 @@
 
 .message {
     width: 100%;
-    height: 100%;
-    overflow-y: auto;
+    height: calc(100% - 70px - 50px);
+    overflow-y: scroll;
 }
 
     .message::-webkit-scrollbar {
@@ -219,4 +219,18 @@ body {
     color: #ffffff;
     text-decoration: none;
     padding: 8px 0;
+}
+
+#pageContainer {
+    height: 100vh;
+}
+
+nav {
+    height: 50px;
+}
+
+@media only screen and (max-width: 500px) {
+    .friendlist h5 {
+        display: none;
+    }
 }

@@ -82,12 +82,6 @@ function addUserMessage(msg) {
     document.getElementById("text").value = '';
 }
 
-// Set container height to 0 as full container will be used
-function hideContainer() {
-    const container = document.getElementById("mainContainer");
-    container.style.height = 0;
-}
-
 function popupListener() {
     window.addEventListener("load", function () {
         setTimeout(
@@ -226,5 +220,4 @@ function loadMessages(messageTo) {
 
 userClickListener();
 popupListener();
-hideContainer();
 removeMb3();
