@@ -235,3 +235,16 @@ nav {
 #emptyTitleItem {
     margin: 40px;
 }
+
+#loggedName {
+    order: 3;
+}
+
+@media only screen and (max-width: 575px) {
+    #loggedName {
+        order: initial;
+    }
+    nav {
+        height: auto;
+    }
+}
