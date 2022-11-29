@@ -14,11 +14,11 @@
     overflow-y:hidden;
 }
 
-    #groups-popup .groups-box {
-        width: 50%;
-        height: 100%;
-        border-right: 2px solid black;
-    }
+#groups-popup .groups-box {
+    width: 50%;
+    height: 100%;
+    border-right: 2px solid black;
+}
 
 .groups-box .head {
     display: flex;
@@ -37,6 +37,10 @@
     outline: none;
     border: none;
     background-color: white;
+}
+
+img {
+    width: 40px;
 }
 
 #groups-popup .members-box {
