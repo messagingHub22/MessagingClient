@@ -142,4 +142,8 @@ img {
     #groups-popup {
         width: 95%;
     }
+
+    img {
+        width: 25px;
+    }
 }
