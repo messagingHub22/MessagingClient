@@ -23,6 +23,11 @@ function loginUser(apiUrl) {
     // User name from input
     userName = document.getElementById('userName').value;
 
+    if (userName == null || userName == "") {
+        alert("Username cannot be empty");
+        return;
+    }
+
     // Remove the login form
     let loginForm = document.getElementById('loginForm');
     loginForm.innerHTML = '';
