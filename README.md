@@ -26,5 +26,17 @@ This environment variable need to be set for the application to function.
 ### Dependency
 
 MessagingClient depends on MessagingLibrary. Clone both projects in their folders which should be placed in the same directory.  
+  
 
 
+![alt text](https://github.com/messagingHub22/MessagingClient/raw/master/screenshots/1.png)  
+
+![alt text](https://github.com/messagingHub22/MessagingClient/raw/master/screenshots/2.png)  
+
+![alt text](https://github.com/messagingHub22/MessagingClient/raw/master/screenshots/3.png)  
+
+![alt text](https://github.com/messagingHub22/MessagingClient/raw/master/screenshots/4.png)  
+
+![alt text](https://github.com/messagingHub22/MessagingClient/raw/master/screenshots/5.png)  
+
+![alt text](https://github.com/messagingHub22/MessagingClient/raw/master/screenshots/6.png)  
